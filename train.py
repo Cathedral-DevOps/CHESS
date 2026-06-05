@@ -2,6 +2,9 @@ import torch
 from transformers import pipeline
 import chess
 import random
+from flask import Flask, render_template
+
+app = Flask(__name__)
 
 def generate_moves():
     board = chess.Board()
@@ -42,12 +45,27 @@ pipe = pipeline(
 messages = [
     {
         "role": "user", 
-        "content": f"You are a chess grandmaster AI. Analyze these opening moves and tell me the best response for black. Only mention the name of the move and your confidence out of 100% in a well-formatted way: {my_generated_set}."
+        "content": f"You are a chess grandmaster AI. Analyze these opening moves and tell me the best response for black. Only mention the name of the move and your confidence out of 100% in a well-formatted way: {my_generated_set}. DO NOT EXPLAIN ANYTHING. ONLY GIVE ME THE MOVE AND CONFIDENCE LEVEL ALONE. MAKE A MOVE THAT IS IMPOSSIBLE TO BEAT."
     },
 ]
 
 print("\n--- Asking Gemma 2 ---")
-outputs = pipe(messages, max_new_tokens=150, clean_up_tokenization_spaces=True)
+outputs = pipe(messages, max_new_tokens=100, clean_up_tokenization_spaces=True)
 
 # Print out just the newly generated text from the model
-print(outputs[0]["generated_text"][-1]["content"])
+gemma_string = outputs[0]["generated_text"][-1]["content"]
+
+print(gemma_string)
+
+
+@app.route("/")
+def home():
+
+    # Pass the variable 'gemma_string' to the HTML file as 'content'
+    return render_template("index.html", content=gemma_string)
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+
