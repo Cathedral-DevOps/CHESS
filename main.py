@@ -4,6 +4,8 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
+blm_string=""
+wlm_string=""
 # We use the 2B Instruction-Tuned variant, which fits comfortably on a laptop
 model_id = "google/gemma-2-2b-it"
 
@@ -54,7 +56,7 @@ def submit():
     gemma_string = outputs[0]["generated_text"][-1]["content"]
 
     # This return statement fixes the TypeError by rendering the page with the response!
-    return render_template("index.html", content=gemma_string, last_move=processed_move)
+    return render_template("index.html", content=gemma_string, last_move=processed_move, blm=blm_string, wlm=wlm_string)
 
 
 if __name__ == "__main__":
