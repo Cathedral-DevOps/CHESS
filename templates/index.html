@@ -4,18 +4,33 @@
     <title>ChessBros</title>
   </head>
   <body style="background-color: darkslategrey">
-    <h1
+    <div
       style="
-        text-align: center;
+        background-image: linear-gradient(to right, darkslategrey, white);
+        width: 101%;
+        height: 200px;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         color: white;
-        font-family:
-          &quot;Lucida Sans&quot;, &quot;Lucida Sans Regular&quot;,
-          &quot;Lucida Grande&quot;, &quot;Lucida Sans Unicode&quot;, Geneva,
-          Verdana, sans-serif;
       "
     >
-      ChessBros
-    </h1>
+      <h1
+        style="
+          text-align: center;
+          color: white;
+          font-size: xx-large;
+          font-weight: bolder;
+          font-family:
+            &quot;Lucida Sans&quot;, &quot;Lucida Sans Regular&quot;,
+            &quot;Lucida Grande&quot;, &quot;Lucida Sans Unicode&quot;, Geneva,
+            Verdana, sans-serif;
+        "
+      >
+        ChessBros
+      </h1>
+    </div>
     <h1
       style="
         text-align: right;
@@ -41,13 +56,13 @@
       Recommended move and confidence level: <br />
       {{ content }}
     </p>
-  
-    <form style="text-align: right;"action="/submit" method="POST">
+
+    <form style="text-align: right" action="/submit" method="POST">
       <input
         type="text"
         id="lastmove"
         name="lastmove"
-        placeholder="Enter last move?" 
+        placeholder="Enter last move?"
       />
       <button type="submit">Submit to ChessMax</button>
     </form>
