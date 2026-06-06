@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Gemma Output</title>
+    <title>ChessBros</title>
 </head>
 <body>
-    <h1>AI Generated Response</h1>
+    <h1 style="text-align: center;"> ChessBros </h1>
+    <h1 style = "text-align: right;">ChessMax Response</h1>
     <!-- Python inserts the variable here -->
-    <p>{{ content }}</p> 
+    <p style = "text-align: right;">Recommended move and confidence level: <br>
+        {{ content }}</p> 
+    <label for="lastmove">lastmove</label>
+    <form action="/submit" method="POST">
+    <input type="text" id="lastmove" name="lastmove" placeholder="What was the last move?">
+    <button type="submit">Submit to ChessMax</button>
+    </form>
 </body>
 </html>
