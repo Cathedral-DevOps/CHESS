@@ -3,11 +3,57 @@
 <html>
   <head>
     <title>ChessBros</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="ChessBros - Your Ultimate Chess Companion"
+    />
+    <meta
+      name="keywords"
+      content="Chess, AI, ChessBros, Chess Companion, Chess Moves"
+    />
+    <link rel="stylesheet" href="style.css" />
   </head>
-  <body style="background-color: darkslategrey">
+  <body
+    style="
+      background-image: linear-gradient(
+        to right,
+        rgb(0, 12, 182),
+        rgb(108, 0, 141)
+      );
+    "
+  >
+    <nav>
+      <ul>
+        <li><a href="/">Cathedral</a></li>
+        <li><a href="/">Play</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/">Portfolio</a></li>
+      </ul>
+      <ul class="sidebar">
+        <li><a href="/">Cathedral</a></li>
+        <li><a href="/">Play</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/">Portfolio</a></li>
+        <li onclick="showSidebar()">
+          <a href="#"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="26"
+              viewBox="0 -960 960 960"
+              width="26"
+              fill="#e3e3e3"
+            >
+              <path
+                d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"
+              /></svg
+          ></a>
+        </li>
+      </ul>
+    </nav>
     <div
       style="
-        background-image: linear-gradient(to right, darkslategrey, white);
         width: 101%;
         height: 200px;
         border-radius: 50px;
@@ -34,7 +80,8 @@
     </div>
     <h1
       style="
-        text-align: right;
+        text-align: flex-start;
+        margin-bottom: 1em;
         color: white;
         font-family:
           &quot;Lucida Sans&quot;, &quot;Lucida Sans Regular&quot;,
@@ -47,7 +94,7 @@
     <!-- Python inserts the variable here -->
     <p
       style="
-        text-align: right;
+        text-align: flex-start;
         color: white;
         font-family:
           &quot;Gill Sans&quot;, &quot;Gill Sans MT&quot;, Calibri,
@@ -55,22 +102,30 @@
       "
     >
       Recommended move and confidence level: <br />
-      {{ content }}
-      Placeholder
-      Black last move:
-      {{blm}}
-      White last move:
+      {{ content }} Placeholder Black last move: {{blm}} White last move:
       {{wlm}}
     </p>
 
-    <form style="text-align: right" action="/submit" method="POST">
+    <form
+      style="text-align: flex-start; margin-top: 1em; margin-bottom: 1em"
+      action="/submit"
+      method="POST"
+    >
       <input
         type="text"
         id="lastmove"
         name="lastmove"
         placeholder="Enter last move?"
       />
-      <button type="submit">Submit to ChessMax</button>
+      <button class="primary" type="submit" style="margin-top: 1em">
+        Submit to ChessMax
+      </button>
     </form>
+    <script>
+      function showSidebar() {
+        const sidebar = document.querySelector(".sidebar");
+        sidebar.style.display = "flex";
+      }
+    </script>
   </body>
 </html>
