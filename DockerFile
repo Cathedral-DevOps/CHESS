@@ -1,0 +1,14 @@
+FROM python:3.10-slim
+
+# Set working directory inside the container
+WORKDIR /CHESS
+
+# Copy and install dependencies
+COPY ./requirements.txt /CHESS/requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /CHESS/requirements.txt
+
+# Copy the rest of your app's files
+COPY . .
+
+# Expose Hugging Face's mandatory port and run with Gunicorn
+CMD ["gunicorn", "-b", "0.0.0.0:7860", "main:app"]

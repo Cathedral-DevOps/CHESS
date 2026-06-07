@@ -1,11 +1,12 @@
 import torch
 from transformers import pipeline
 from flask import Flask, render_template, request
-
+import board
 app = Flask(__name__)
 
-blm_string=""
-wlm_string=""
+board.get_random_move()
+blm_string=board.BlackPos
+wlm_string=board.WhitePos
 # We use the 2B Instruction-Tuned variant, which fits comfortably on a laptop
 model_id = "google/gemma-2-2b-it"
 
