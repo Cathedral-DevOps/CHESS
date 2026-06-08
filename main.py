@@ -1,6 +1,6 @@
 import torch
 from transformers import pipeline
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
 
 # We use the 2B Instruction-Tuned variant, which fits comfortably on a laptop
@@ -29,6 +29,19 @@ def stringprocesser(captured_entry):
 def home():
     # Pass None initially so the template knows there is no output yet
     return render_template("index.html", content=None)
+
+#call variables from JavaScript
+@app.route('/receive-data', methods=['POST'])
+def receive_data():
+    data = request.get_json()
+    xCoordinate = data.get('xCoordinate')
+    yCoordinate = data.get('yCoordinate')
+    print(f"Received from JS ---> xCoordinate: {xCoordinate} and yCoordinate: {yCoordinate}.")
+    result = {
+        "status":"success",
+        "message":f"Date received: {xCoordinate}, {yCoordinate}"
+    }
+    return jsonify(result), 200
 
 
 @app.route('/submit', methods=['POST'])
