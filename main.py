@@ -3,11 +3,10 @@ from transformers import pipeline
 from flask import Flask, render_template, request
 app = Flask(__name__)
 
-
 # We use the 2B Instruction-Tuned variant, which fits comfortably on a laptop
 model_id = "google/gemma-2-2b-it"
 
-print("Loading Gemma 2... (Note: The first run will download roughly 5GB of files)")
+print("Loading Gemma 2")
 
 # Set up the text generation pipeline globally so it only loads into memory ONCE on startup
 pipe = pipeline(
@@ -17,13 +16,14 @@ pipe = pipeline(
     model_kwargs={"torch_dtype": torch.bfloat16},
     device_map="auto"  # Automatically utilizes Mac hardware optimization (MPS/Metal)
 )
-print("✅ Gemma 2 pipeline loaded successfully!")
+print("-------Gemma 2 pipeline loaded successfully!-------")
 
 
 def stringprocesser(captured_entry):
     print(f"Processing: {captured_entry}")
     return captured_entry
 
+## FLASK ROUTES
 
 @app.route("/")
 def home():
