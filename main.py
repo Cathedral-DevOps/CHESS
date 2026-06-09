@@ -1,6 +1,7 @@
 import torch
 from transformers import pipeline
 from flask import Flask, render_template, request, jsonify
+from processing import first, second, third
 app = Flask(__name__)
 
 # We use the 2B Instruction-Tuned variant, which fits comfortably on a laptop

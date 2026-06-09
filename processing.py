@@ -16,12 +16,13 @@ xCoordinate = listOfPlaces[0:8]
 yCoordinate = listOfNumbers[0:8]
 
 
+
 if selector in listOfPieces:
     first = selector
-if position in listOfPlaces:
-    second = position
-if position2 in listOfNumbers:
-    third = position2
+if xCoordinate in listOfPlaces:
+    second = xCoordinate
+if yCoordinate in listOfNumbers:
+    third = yCoordinate
 
 result = first + second + third
 print(f"Your move is: {result}")
