@@ -81,23 +81,4 @@ button:hover {
     40px 0 100px #008cffbd,
     -40px 0 100px #e100ffb6;
 }
-input {
-  border: none;
-  -webkit-appearance: none;
-  -ms-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: #003daf;
-  border-radius: 3px;
-  width: 250px;
-  height: 40px;
-  outline: none;
-}
-input:focus::placeholder {
-  color: transparent;
-}
-input::placeholder {
-  color: #ffffff;
-  text-align: center;
-  transition: color 0.25s ease;
-}
+
