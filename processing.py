@@ -4,7 +4,7 @@ listOfNumbers = ["1", "2", "3", "4", "5", "6", "7", "8"]
 listOfPieces = ["pawn", "rook", "knight", "bishop", "queen", "king"]
 
 def calculate(x_in, y_in, placement_in):
-    x_mapped = {
+    x_mapping = {
         "x1": "a",
         "x2": "b",
         "x3": "c",
@@ -14,8 +14,8 @@ def calculate(x_in, y_in, placement_in):
         "x7": "g",
         "x8": "f",
         "x9": "h",
-    }.get(x_in, x_in)
-    y_mapped = {
+    }
+    y_mapping = {
         "y1": "1",
         "y2": "2",
         "y3": "3",
@@ -25,14 +25,11 @@ def calculate(x_in, y_in, placement_in):
         "y7": "7",
         "y8": "8",
         "y9": "9",
-    }.get(y_in, y_in)
+    }
 
-    if placement_in in listOfPieces:
-        first = placement_in
-    if x_in in listOfPlaces:
-        second = x_mapped
-    if y_in in listOfNumbers:
-        third = y_mapped
+    first = placement_in if placement_in in listOfPieces else "invalid"
+    second = x_mapping.get(x_in, "") if x_in in x_mapping else "invalid"
+    third = y_mapping.get(y_in, "") if y_in in y_mapping else "invalid"
 
     result = first + second + third
     print(f"Your move is: {result}")

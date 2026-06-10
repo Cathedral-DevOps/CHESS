@@ -3,6 +3,7 @@
 <html>
   <head>
     <title>ChessBros</title>
+    <script src="{{ url_for('static', filename='index.js') }}" defer></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="UTF-8" />
     <meta
@@ -13,7 +14,7 @@
       name="keywords"
       content="Chess, AI, ChessBros, Chess Companion, Chess Moves"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
   </head>
   <body
     style="
@@ -100,16 +101,13 @@
           &quot;Gill Sans&quot;, &quot;Gill Sans MT&quot;, Calibri,
           &quot;Trebuchet MS&quot;, sans-serif;
       "
+      id="aiResponse"
     >
-      Recommended move and confidence level: <br />
-      {{ content }} Placeholder Black last move: {{blm}} White last move:
-      {{wlm}}
     </p>
 
     <form
       style="text-align: flex-start; margin-top: 1em; margin-bottom: 1em"
-      action="/submit"
-      method="POST"
+      id="chessForm"
     >
       <input
         type="text"
@@ -117,15 +115,15 @@
         name="lastmove"
         placeholder="Enter last move?"
       />
-      <button class="primary" type="submit" style="margin-top: 1em">
+      <button id="moveButton" type="submit" style="margin-top: 1em">
         Submit to ChessMax
       </button>
     </form>
-    <script>
-      function showSidebar() {
-        const sidebar = document.querySelector(".sidebar");
-        sidebar.style.display = "flex";
-      }
+    <p style="text-align: flex-start; color: white; font-family: 'Gill Sans', sans-serif;"> 
+    Recommended move and confidence level: {{content}} <br /> 
+    <span id="aiResponse">Waiting for your move...</span>
+    </p>
+    
     </script>
   </body>
 </html>
