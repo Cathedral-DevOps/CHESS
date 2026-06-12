@@ -3,6 +3,11 @@ from transformers import pipeline
 from flask import Flask, render_template, request, jsonify
 from processing import calculate
 
+# This code is only usable via logging in via terminal with your hugging face authentication token, which can be found on
+# huggingface's website (needs an account). The Gemma 2.5 model will be downloaded ON to your device LOCALLY. Do not use this code
+# unless your are OK with running a local AI model. For a live demo on our device, please contact Aditya Mathew (PREP2).
+
+
 app = Flask(__name__)
 
 # We use the 2B Instruction-Tuned variant, which fits comfortably on a laptop
