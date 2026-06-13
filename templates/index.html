@@ -1,24 +1,32 @@
 <!doctype html>
-<!-- This is an HTML file that uses INLINED CSS and not CSS in a separate file -->
+<!-- This HTML document uses both INLINED CSS (inline styles) and external CSS file -->
 <html>
   <head>
+    <!-- Page title shown in browser tab -->
     <title>ChessBros</title>
+    <!-- Load JavaScript file from static folder with defer (loads after HTML parses) -->
     <script src="{{ url_for('static', filename='index.js') }}" defer></script>
+    <!-- Set viewport for responsive design on mobile devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Set character encoding to UTF-8 for proper text display -->
     <meta charset="UTF-8" />
+    <!-- Description for search engines -->
     <meta
       name="description"
       content="ChessBros - Your Ultimate Chess Companion"
     />
+    <!-- Keywords for search engines -->
     <meta
       name="keywords"
       content="Chess, AI, ChessBros, Chess Companion, Chess Moves"
     />
+    <!-- Link to external CSS stylesheet -->
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='style.css') }}"
     />
   </head>
+  <!-- Body element with inline gradient background from blue to purple -->
   <body
     style="
       background-image: linear-gradient(
@@ -28,27 +36,37 @@
       );
     "
   >
+    <!-- Navigation bar at top of page -->
     <nav>
+      <!-- Main navigation menu list -->
       <ul>
+        <!-- Navigation link for Cathedral -->
         <li><a href="/">Cathedral</a></li>
+        <!-- Navigation link for Play section -->
         <li><a href="/">Play</a></li>
+        <!-- Navigation link for Home -->
         <li><a href="/">Home</a></li>
+        <!-- Navigation link for Portfolio -->
         <li><a href="/">Portfolio</a></li>
       </ul>
-      <ul class="sidebar">
-        <li><a href="/">Cathedral</a></li>
-        <li><a href="/">Play</a></li>
-        <li><a href="/">Home</a></li>
-        <li><a href="/">Portfolio</a></li>
-        <li onclick="showSidebar()">
-          <a href="#"
-            ><svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="26"
-              viewBox="0 -960 960 960"
-              width="26"
-              fill="#e3e3e3"
+      <!-- Sidebar navigation menu (hidden by default, shown on mobile) -->
+      <ul class=\"sidebar\">
+        <!-- Sidebar links -->
+        <li><a href=\"/\">Cathedral</a></li>
+        <li><a href=\"/\">Play</a></li>
+        <li><a href=\"/\">Home</a></li>
+        <li><a href=\"/\">Portfolio</a></li>
+        <!-- Menu toggle button with hamburger icon SVG -->
+          <a href=\"#\"
+            ><!-- SVG hamburger menu icon (three horizontal lines) -->
+            <svg
+              xmlns=\"http://www.w3.org/2000/svg\"
+              height=\"26\"
+              viewBox=\"0 -960 960 960\"
+              width=\"26\"
+              fill=\"#e3e3e3\"
             >
+              <!-- Three horizontal lines representing hamburger menu -->
               <path
                 d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"
               /></svg
