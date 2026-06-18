@@ -1,3 +1,8 @@
+
+let placement = "pawn";
+let xCoordinate = "x1";
+let yCoordinate = "y1";
+
 class ChessPiece {
     constructor(type, color, position) {
         this.type = type;
@@ -71,3 +76,36 @@ pieces.forEach( piece => {
         square.appendChild(span);
     }
 });
+//send to flask python.
+
+async function sendToFlask(moveData){
+    const payload = {
+        username: moveData.username || "Player",
+        xCoordinate: moveData.x,
+        yCoordinate: moveData.y,
+        placement: moveData.placementString,
+        player_color: moveData.color
+    };
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify(payload)
+    }
+   try {
+    const response = await fetch('/api/receive-data', requestOptions);
+    if (!response.ok){
+        const errorPayload = await response.json();
+        throw new Error(errorPayload.error || errorPayload.message || 'Server error');
+
+    }
+    const result = await response.json();
+    console.log("Analysis successful:",result.processed_move);
+    console.log("ChessMax has stated:", result.ai_response);
+    return result;
+   } catch (error){
+    console.error("Failed to fetch.", error.message);
+    alaert("ChessMax pipeline error: "+ error.message);
+   }
+}

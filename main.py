@@ -17,9 +17,21 @@ print("success")
 # FLASK ROUTES
 @app.route("/")
 def home():
-    return render_template("index.html", content="None")
+    return render_template("index.html")
+
+#NEW ROUTES FOR NEW PAGES
+@app.route("/chess")
+def chess():
+    return render_template("chess.html",content="None")
+@app.route("/portfolio")
+def portfolio():
+    return render_template("portfolio.html")
+@app.route("/settings")
+def settings():
+    return render_template("settings.html")
 
 
+#DATA ROUTE
 @app.route("/api/receive-data", methods=["POST", "OPTIONS"])
 def receive_data():
     if request.method == "OPTIONS":
