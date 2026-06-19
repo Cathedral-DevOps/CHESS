@@ -19,21 +19,27 @@ print("success")
 def home():
     return render_template("index.html")
 
-#NEW ROUTES FOR NEW PAGES
+
+# NEW ROUTES FOR NEW PAGES
 @app.route("/chess")
 def chess():
-    return render_template("chess.html",content="None")
+    return render_template("chess.html", content="None")
+
+
 @app.route("/portfolio")
 def portfolio():
     return render_template("portfolio.html")
+
+
 @app.route("/settings")
 def settings():
     return render_template("settings.html")
 
 
-#DATA ROUTE
+# DATA ROUTE
 @app.route("/api/receive-data", methods=["POST", "OPTIONS"])
 def receive_data():
+
     if request.method == "OPTIONS":
         response = jsonify({"status": "preflight"})
         response.headers.add("Access-Control-Allow-Origin", "*")
@@ -48,21 +54,41 @@ def receive_data():
     yCoordinate = data.get("yCoordinate")
     placement = data.get("placement")
     player_color = data.get("player_color")
-    print(f"received: {username}, {xCoordinate}, {yCoordinate}, {placement}")
+    print(
+        f"received: {username}, {xCoordinate}, {yCoordinate}, {placement}, {player_color}"
+    )
     # Analysis
     try:
         analyzed_move = calculate(xCoordinate, yCoordinate, placement)
         print(f"{analyzed_move}")
         if not analyzed_move:
             return jsonify({"error": "returned null string or other"}), 500
+        PROMPT_STRING = f"""You are ChessMax, an elite Chess Grandmaster AI. Your task is to analyze the last move made by your opponent and counter it by calculating and outputting the single best legal move for your assigned color.
+
+### Game State
+- Opponent's Color (Last Move): {player_color}
+- Opponent's Last Move: {analyzed_move}
+
+### Constraints
+1. The last move was made by {player_color}. You are playing as the opposite color. You must ONLY suggest a counter-move for the opposite color.
+2. You must strictly abide by all standard rules of chess.
+3. The move you suggest MUST be a legal move.
+4. Do not provide any analysis, commentary, or introduction.
+5. You must ONLY respond in the exact format specified below.
+
+### Output Format
+[Your Color] [Piece] to [Square].
+
+### Example Outputs
+- If Opponent played Black: White Knight to a4.
+- If Opponent played White: Black Queen to e5.
+
+### Next Move Response:"""
         messages = [
-            {
-                "role": "user",
-                "content": f"You are a chess grandmaster AI called ChessMax. You must take this last move from a chess game, {analyzed_move}, and predict the next best move. Only respond with the move the player should make in english. Example response: White Knight to a4. Only respond like this. Predict in accordance with strategies that the top chess players use. The player previously played as {player_color}. What move should {player_color} make next? This is what you are trying to answer. Please respond correctly."
-            },
+            {"role": "user", "content": PROMPT_STRING},
         ]
         print(f"Asking ChessMax about {analyzed_move} from {player_color}")
-        outputs = pipe(messages, max_new_tokens=420, clean_up_tokenization_spaces=True)
+        outputs = pipe(messages, max_new_tokens=30, clean_up_tokenization_spaces=True)
         gemma_string = outputs[0]["generated_text"][-1]["content"]
         print(f"{gemma_string}")
         response = jsonify(

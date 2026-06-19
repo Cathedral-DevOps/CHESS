@@ -72,7 +72,7 @@ body {
 }
 
 #Description {
-   display: flex;
+  display: flex;
   justify-content: center;
   margin-top: 15px;
   margin: 4px;
@@ -108,7 +108,7 @@ body {
 }
 
 #ChessMax {
-display: flex;
+  display: flex;
   justify-content: center;
   margin-top: 15px;
   margin: 4px;
