@@ -10,14 +10,11 @@ body {
 
 .chess-container {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(8, 1fr);
+  grid-template-columns: repeat(8, 12.5%);
+  grid-template-rows: repeat(8, 12.5%);
   width: min(90vh, 90vw, calc(100vw - 2rem));
   height: min(90vh, 90vw, calc(100vw - 2rem));
-  max-width: 90vw;
-  max-height: 90vw;
   aspect-ratio: 1;
-  gap: 2px;
 }
 
 .board-location {
@@ -60,7 +57,7 @@ body {
 #x7y5,
 #x7y7 {
   background-color: rgb(58, 32, 5) !important;
-  color: rgb(58, 32, 5) !important;
+  color: rgba(0,0,0,0,.2) !important;
 }
 
 #x1y0,
@@ -97,4 +94,17 @@ body {
 #x6y7 {
   background-color: rgb(126, 73, 37) !important;
   color: rgb(126, 73, 37) !important;
+}
+.piece {
+  font-size: clamp(24px,7vw,50px);
+  cursor: grab;
+  user-select: none;
+  color:white;
+  z-index:10;
+}
+.piece.black-piece {color:#000000; text-shadow:0 0 4px #fff;}
+
+.piece.white-piece {color:#ffffff; text-shadow:0 0 4px #000;}
+.piece:active{
+  cursor:grabbing;
 }

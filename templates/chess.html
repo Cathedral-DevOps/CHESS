@@ -1,86 +1,155 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ChessBros - Play</title>
-    <link rel="stylesheet" href="chess.css">
-</head>
-<body>
-   <div class = "chess-container">
-    <!--8th-->
-<div class = "board-location" id = "x0y7">A8</div>
-<div class = "board-location" id = "x1y7">B8</div>
-<div class = "board-location" id = "x2y7">C8</div>
-<div class = "board-location" id = "x3y7">D8</div>
-<div class = "board-location" id = "x4y7">E8</div>
-<div class = "board-location" id = "x5y7">F8</div>
-<div class = "board-location" id = "x6y7">G8</div>
-<div class = "board-location" id = "x7y7">H8</div>
-<!--7th-->
-<div class = "board-location" id = "x0y6">A7</div>
-<div class = "board-location" id = "x1y6">B7</div>
-<div class = "board-location" id = "x2y6">C7</div>
-<div class = "board-location" id = "x3y6">D7</div>
-<div class = "board-location" id = "x4y6">E7</div>
-<div class = "board-location" id = "x5y6">F7</div>
-<div class = "board-location" id = "x6y6">G7</div>
-<div class = "board-location" id = "x7y6">H7</div>
-<!--6th-->
-<div class = "board-location" id = "x0y5">A6</div>
-<div class = "board-location" id = "x1y5">B6</div>
-<div class = "board-location" id = "x2y5">C6</div>
-<div class = "board-location" id = "x3y5">D6</div>
-<div class = "board-location" id = "x4y5">E6</div>
-<div class = "board-location" id = "x5y5">F6</div>
-<div class = "board-location" id = "x6y5">G6</div>
-<div class = "board-location" id = "x7y5">H6</div>
-<!--5th-->
-<div class = "board-location" id = "x0y4">A5</div>
-<div class = "board-location" id = "x1y4">B5</div>
-<div class = "board-location" id = "x2y4">C5</div>
-<div class = "board-location" id = "x3y4">D5</div>
-<div class = "board-location" id = "x4y4">E5</div>
-<div class = "board-location" id = "x5y4">F5</div>
-<div class = "board-location" id = "x6y4">G5</div>
-<div class = "board-location" id = "x7y4">H5</div>
-<!--4th-->
-<div class = "board-location" id = "x0y3">A4</div>
-<div class = "board-location" id = "x1y3">B4</div>
-<div class = "board-location" id = "x2y3">C4</div>
-<div class = "board-location" id = "x3y3">D4</div>
-<div class = "board-location" id = "x4y3">E4</div>
-<div class = "board-location" id = "x5y3">F4</div>
-<div class = "board-location" id = "x6y3">G4</div>
-<div class = "board-location" id = "x7y3">H4</div>
-<!--3rd-->
-<div class = "board-location" id = "x0y2">A3</div>
-<div class = "board-location" id = "x1y2">B3</div>
-<div class = "board-location" id = "x2y2">C3</div>
-<div class = "board-location" id = "x3y2">D3</div>
-<div class = "board-location" id = "x4y2">E3</div>
-<div class = "board-location" id = "x5y2">F3</div>
-<div class = "board-location" id = "x6y2">G3</div>
-<div class = "board-location" id = "x7y2">H3</div>
-<!--2nd-->
-<div class = "board-location" id = "x0y1">A2</div>
-<div class = "board-location" id = "x1y1">B2</div>
-<div class = "board-location" id = "x2y1">C2</div>
-<div class = "board-location" id = "x3y1">D2</div>
-<div class = "board-location" id = "x4y1">E2</div>
-<div class = "board-location" id = "x5y1">F2</div>
-<div class = "board-location" id = "x6y1">G2</div>
-<div class = "board-location" id = "x7y1">H2</div>
-<!--1st-->
-<div class = "board-location" id = "x0y0">A1</div>
-<div class = "board-location" id = "x1y0">B1</div>
-<div class = "board-location" id = "x2y0">C1</div>
-<div class = "board-location" id = "x3y0">D1</div>
-<div class = "board-location" id = "x4y0">E1</div>
-<div class = "board-location" id = "x5y0">F1</div>
-<div class = "board-location" id = "x6y0">G1</div>
-<div class = "board-location" id = "x7y0">H1</div>
-   </div>
-    <script src="chess.js"></script>
-</body>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/chess.css') }}"
+    />
+  </head>
+  <body>
+    <div class="chess-container">
+      <!--8th-->
+      <div class="board-location" id="x0y7">
+        <div class="piece" draggable="true" id="w-rook1">♖</div>
+      </div>
+      <div class="board-location" id="x1y7">
+        <div class="piece" draggable="true" id="w-knight1">♘</div>
+      </div>
+      <div class="board-location" id="x2y7">
+        <div class="piece" draggable="true" id="w-bishop1">♗</div>
+      </div>
+      <div class="board-location" id="x3y7">
+        <div class="piece" draggable="true" id="w-queen">♕</div>
+      </div>
+      <div class="board-location" id="x4y7">
+        <div class="piece" draggable="true" id="w-king">♔</div>
+      </div>
+      <div class="board-location" id="x5y7">
+        <div class="piece" draggable="true" id="w-bishop2">♗</div>
+      </div>
+      <div class="board-location" id="x6y7">
+        <div class="piece" draggable="true" id="w-knight2">♘</div>
+      </div>
+      <div class="board-location" id="x7y7">
+        <div class="piece" draggable="true" id="w-rook2">♖</div>
+      </div>
+      <!--7th-->
+      <div class="board-location" id="x0y6">
+        <div class="piece" draggable="true" id="w-pawn1">♙</div>
+      </div>
+      <div class="board-location" id="x1y6">
+        <div class="piece" draggable="true" id="w-pawn2">♙</div>
+      </div>
+      <div class="board-location" id="x2y6">
+        <div class="piece" draggable="true" id="w-pawn3">♙</div>
+      </div>
+      <div class="board-location" id="x3y6">
+        <div class="piece" draggable="true" id="w-pawn4">♙</div>
+      </div>
+      <div class="board-location" id="x4y6">
+        <div class="piece" draggable="true" id="w-pawn5">♙</div>
+      </div>
+      <div class="board-location" id="x5y6">
+        <div class="piece" draggable="true" id="w-pawn6">♙</div>
+      </div>
+      <div class="board-location" id="x6y6">
+        <div class="piece" draggable="true" id="w-pawn7">♙</div>
+      </div>
+      <div class="board-location" id="x7y6">
+        <div class="piece" draggable="true" id="w-pawn8">♙</div>
+      </div>
+      <!--empty middle-->
+      <!--6th-->
+      <div class="board-location" id="x0y5"></div>
+      <div class="board-location" id="x1y5"></div>
+      <div class="board-location" id="x2y5"></div>
+      <div class="board-location" id="x3y5"></div>
+      <div class="board-location" id="x4y5"></div>
+      <div class="board-location" id="x5y5"></div>
+      <div class="board-location" id="x6y5"></div>
+      <div class="board-location" id="x7y5"></div>
+      <!--5th-->
+      <div class="board-location" id="x0y4"></div>
+      <div class="board-location" id="x1y4"></div>
+      <div class="board-location" id="x2y4"></div>
+      <div class="board-location" id="x3y4"></div>
+      <div class="board-location" id="x4y4"></div>
+      <div class="board-location" id="x5y4"></div>
+      <div class="board-location" id="x6y4"></div>
+      <div class="board-location" id="x7y4"></div>
+      <!--4th-->
+      <div class="board-location" id="x0y3"></div>
+      <div class="board-location" id="x1y3"></div>
+      <div class="board-location" id="x2y3"></div>
+      <div class="board-location" id="x3y3"></div>
+      <div class="board-location" id="x4y3"></div>
+      <div class="board-location" id="x5y3"></div>
+      <div class="board-location" id="x6y3"></div>
+      <div class="board-location" id="x7y3"></div>
+      <!--3rd-->
+      <div class="board-location" id="x0y2"></div>
+      <div class="board-location" id="x1y2"></div>
+      <div class="board-location" id="x2y2"></div>
+      <div class="board-location" id="x3y2"></div>
+      <div class="board-location" id="x4y2"></div>
+      <div class="board-location" id="x5y2"></div>
+      <div class="board-location" id="x6y2"></div>
+      <div class="board-location" id="x7y2"></div>
+      <!--2nd-->
+      <!--black side-->
+      <div class="board-location" id="x0y1">
+        <div class="piece" draggable="true" id="b-pawn1">♟</div>
+      </div>
+      <div class="board-location" id="x1y1">
+        <div class="piece" draggable="true" id="b-pawn2">♟</div>
+      </div>
+      <div class="board-location" id="x2y1">
+        <div class="piece" draggable="true" id="b-pawn3">♟</div>
+      </div>
+      <div class="board-location" id="x3y1">
+        <div class="piece" draggable="true" id="b-pawn4">♟</div>
+      </div>
+      <div class="board-location" id="x4y1">
+        <div class="piece" draggable="true" id="b-pawn5">♟</div>
+      </div>
+      <div class="board-location" id="x5y1">
+        <div class="piece" draggable="true" id="b-pawn6">♟</div>
+      </div>
+      <div class="board-location" id="x6y1">
+        <div class="piece" draggable="true" id="b-pawn7">♟</div>
+      </div>
+      <div class="board-location" id="x7y1">
+        <div class="piece" draggable="true" id="b-pawn8">♟</div>
+      </div>
+      <!--1st-->
+      <div class="board-location" id="x0y0">
+        <div class="piece" draggable="true" id="b-rook1">♜</div>
+      </div>
+      <div class="board-location" id="x1y0">
+        <div class="piece" draggable="true" id="b-knight1">♞</div>
+      </div>
+      <div class="board-location" id="x2y0">
+        <div class="piece" draggable="true" id="b-bishop1">♝</div>
+      </div>
+      <div class="board-location" id="x3y0">
+        <div class="piece" draggable="true" id="b-queen">♛</div>
+      </div>
+      <div class="board-location" id="x4y0">
+        <div class="piece" draggable="true" id="b-king">♚</div>
+      </div>
+      <div class="board-location" id="x5y0">
+        <div class="piece" draggable="true" id="b-bishop2">♝</div>
+      </div>
+      <div class="board-location" id="x6y0">
+        <div class="piece" draggable="true" id="b-knight2">♞</div>
+      </div>
+      <div class="board-location" id="x7y0">
+        <div class="piece" draggable="true" id="b-rook2">♜</div>
+      </div>
+    </div>
+    <script src="/static/chess.js"></script>
+  </body>
 </html>

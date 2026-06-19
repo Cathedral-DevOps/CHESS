@@ -1,0 +1,141 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#Welcome {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  margin: 4px;
+  margin-left: 25%;
+  width: 50%;
+  background: rgba(255, 255, 255, 0.15); /* Translucent base */
+  backdrop-filter: blur(12px); /* The frosted glass effect */
+  -webkit-backdrop-filter: blur(12px);
+  border: 2px solid rgba(255, 255, 255, 0.25); /* Reflective edge */
+  border-radius: 13px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); /* Soft depth shadow */
+  margin-top: 20px;
+  text-align: center;
+  font-size: xx-large;
+  color: rgb(255, 255, 255);
+}
+
+.navbar {
+  width: 50%;
+  margin-top: 5px;
+  background: rgba(255, 255, 255, 0.15); /* Translucent base */
+  backdrop-filter: blur(12px); /* The frosted glass effect */
+  -webkit-backdrop-filter: blur(12px);
+  border: 2px solid rgba(255, 255, 255, 0.25); /* Reflective edge */
+
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); /* Soft depth shadow */
+  width: 100%;
+  display: flex;
+  font-family:
+    "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  justify-content: center;
+}
+
+.navbar ul {
+  list-style-type: none;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.navbar li {
+  float: left;
+}
+
+.navbar a {
+  display: block;
+  color: rgb(91, 91, 91) !important;
+  text-decoration: none;
+  padding: 15px;
+  text-align: center;
+}
+
+.navbar a:hover {
+  background-color: whitesmoke;
+  color: rgb(29, 150, 255) !important;
+}
+
+body {
+  background-image: linear-gradient(to right, #78bafc, #0b4391d2);
+  font-family:
+    "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+#Description {
+   display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  margin: 4px;
+  margin-left: 25%;
+  width: 50%;
+  margin-top: 15px;
+  background: rgba(255, 255, 255, 0.15); /* Translucent base */
+  backdrop-filter: blur(12px); /* The frosted glass effect */
+  -webkit-backdrop-filter: blur(12px);
+  border: 2px solid rgba(255, 255, 255, 0.25); /* Reflective edge */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); /* Soft depth shadow */
+  border-radius: 20px;
+  padding: 15px;
+  text-align: center;
+  font-size: 30px;
+  font-family:
+    "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: rgb(255, 255, 255);
+}
+
+#DescriptionParagraph {
+  padding: 5px;
+  margin-top: 6.7px;
+  text-align: center;
+  font-family:
+    "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+
+  font-size: 17.5px;
+  color: white !important;
+  padding: 20;
+}
+
+#ChessMax {
+display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  margin: 4px;
+  margin-left: 25%;
+  width: 50%;
+  margin-top: 15px;
+  border-radius: 20px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.15); /* Translucent base */
+  backdrop-filter: blur(12px); /* The frosted glass effect */
+  -webkit-backdrop-filter: blur(12px);
+  border: 2px solid rgba(255, 255, 255, 0.25); /* Reflective edge */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); /* Soft depth shadow */
+  text-align: center;
+  font-family:
+    "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 30px;
+  color: rgb(255, 255, 255);
+}
+#AIdescriptionparagraph {
+  margin-top: 5px;
+  padding: 5px;
+  text-align: center;
+  font-size: 15px;
+  color: white;
+  font-family:
+    "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
