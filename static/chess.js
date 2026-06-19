@@ -1,13 +1,14 @@
-let placement = "pawn"; 
-let xCoordinate = "x1"; 
-let yCoordinate = "y1"; 
+
 
 document.addEventListener("DOMContentLoaded", () => { 
-  const piecesList = document.querySelectorAll('.piece'); // Renamed slightly to avoid clash with array below
+  const piecesList = document.querySelectorAll('.piece'); 
   const squares = document.querySelectorAll('.board-location'); 
 
-  // 1. Drag Start: Track piece ID 
-  piecesList.forEach(piece => { 
+  // 1. Drag Start: Track piece ID & Ensure unique IDs
+  piecesList.forEach((piece, index) => { 
+    // Ensure every piece has a unique ID so we move the correct element
+    piece.id = piece.id + "-" + index; 
+
     piece.addEventListener('dragstart', (e) => { 
       e.dataTransfer.setData('text/plain', e.target.id); 
     }); 
@@ -26,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const draggedPiece = document.getElementById(pieceId); 
       if (!draggedPiece) return; 
 
-      // CRITICAL FIX: Always find the actual square container, even if dropping directly onto text 
+      // Find the actual square container, even if dropping directly onto text
       const targetSquare = e.target.closest('.board-location'); 
       if (targetSquare) { 
         // Check if the square already contains a different piece 
@@ -36,44 +37,55 @@ document.addEventListener("DOMContentLoaded", () => {
           existingPiece.remove(); 
           targetSquare.appendChild(draggedPiece); 
         } else { 
-          // Empty square logic: clear out old coordinate text (like "B8") and append 
-          // This checks if the square only contains plain text strings 
+          // Empty square logic: clear out old coordinate text and append 
           if (targetSquare.children.length === 0) { 
             targetSquare.textContent = ''; 
           } 
           targetSquare.appendChild(draggedPiece); 
         } 
+
+        // --- TRACK THE MOVE ---
+        const squareId = targetSquare.id; 
+        const xVal = "x" + squareId.charAt(1); 
+        const yVal = "y" + squareId.charAt(3);
+
+        // Figure out piece name (e.g. w-pawn-3 -> pawn)
+        const idParts = draggedPiece.id.split('-');
+        const movedPiece = idParts[1] || 'piece';
+
+        // Track the color safely
+        let movedColor = "Black"; 
+        if (draggedPiece.classList.contains("white-piece") || draggedPiece.id.startsWith("w-")) {
+          movedColor = "White";
+        } else if (draggedPiece.classList.contains("black-piece") || draggedPiece.id.startsWith("b-")) {
+          movedColor = "Black";
+        }
+
+        const moveDescription = `${movedColor} ${movedPiece} to square (${xVal}, ${yVal})`;
+        console.log(`Tracked Move: ${moveDescription}`);
+
+        // Send the updated move data directly using the key names Flask expects!
+        sendToFlask({
+          xCoordinate: xVal,
+          yCoordinate: yVal,
+          placement: movedPiece,
+          player_color: movedColor,
+          username: "Player" 
+        });
       } 
     }); 
-  }); // <-- FIXED: This closes the squares.forEach loop correctly
-
-
-  function positionToId(position) { 
-    const file = position.charCodeAt(0) - 97; // a - h to 0 - 7 
-    const rank = parseInt(position[1]) - 1; // 1 - 8 to 0 - 7 
-    return `square-${file}-${rank}`; 
-  } 
-
-  chessPieces.forEach(piece => { 
-    const squareId = positionToId(piece.position); 
-    const square = document.getElementById(squareId); 
-    if (square) { 
-      const span = document.createElement(`span`); // FIXED: Added 'document.' prefix 
-      span.className = 'piece'; // FIXED: Changed classname to className (camelCase)
-      span.textContent = piece.getSymbol(); 
-      square.appendChild(span); 
-    } 
   }); 
-}); // <-- FIXED: This closes the DOMContentLoaded listener correctly
+}); 
 
-// send to flask python. 
+// Send data to Flask Python server
 async function sendToFlask(moveData) { 
+  // Packaging the payload with the exact keys you specified
   const payload = { 
     username: moveData.username || "Player", 
-    xCoordinate: moveData.x || xCoordinate, 
-    yCoordinate: moveData.y || yCoordinate, 
-    placement: moveData.placementString || placement, 
-    player_color: moveData.color || "Black", 
+    xCoordinate: moveData.xCoordinate || xCoordinate, 
+    yCoordinate: moveData.yCoordinate || yCoordinate, 
+    placement: moveData.placement || placement, 
+    player_color: moveData.player_color || "Black", 
   }; 
   
   const requestOptions = { 
@@ -93,7 +105,6 @@ async function sendToFlask(moveData) {
     console.log("ChessMax has stated:", result.ai_response); 
     return result; 
   } catch (error) { 
-    console.error("Failed to fetch.", error.message); 
-    alert("ChessMax pipeline error: " + error.message); 
+    console.error("ChessMax pipeline error:", error.message); 
   } 
 }

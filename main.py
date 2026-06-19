@@ -58,11 +58,11 @@ def receive_data():
         messages = [
             {
                 "role": "user",
-                "content": f"You are a chess grandmaster AI called ChessMax. You must take this last move from a chess game, {analyzed_move}, and predict the next best move. Only respond with the move the player should make in english. Example response: Knight to a4. Only respond like this. Predict in accordance with strategies that the top chess players use. The player previously played as {player_color}. What move should {player_color} make next? This is what you are trying to answer."
+                "content": f"You are a chess grandmaster AI called ChessMax. You must take this last move from a chess game, {analyzed_move}, and predict the next best move. Only respond with the move the player should make in english. Example response: White Knight to a4. Only respond like this. Predict in accordance with strategies that the top chess players use. The player previously played as {player_color}. What move should {player_color} make next? This is what you are trying to answer. Please respond correctly."
             },
         ]
         print(f"Asking ChessMax about {analyzed_move} from {player_color}")
-        outputs = pipe(messages, max_new_tokens=120, clean_up_tokenization_spaces=True)
+        outputs = pipe(messages, max_new_tokens=420, clean_up_tokenization_spaces=True)
         gemma_string = outputs[0]["generated_text"][-1]["content"]
         print(f"{gemma_string}")
         response = jsonify(
