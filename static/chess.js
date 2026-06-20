@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  let highlightedSquare;
   const piecesList = document.querySelectorAll(".piece");
   const squares = document.querySelectorAll(".board-location");
 
@@ -75,6 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
           placement: movedPiece,
           player_color: movedColor,
           username: "Player",
+          highlightedSquare: "None",
         });
       }
     });
@@ -90,6 +92,7 @@ async function sendToFlask(moveData) {
     yCoordinate: moveData.yCoordinate || yCoordinate,
     placement: moveData.placement || placement,
     player_color: moveData.player_color || "Black",
+    highlightedSquare: moveData.highlightedSquare,
   };
 
   const requestOptions = {

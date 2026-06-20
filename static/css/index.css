@@ -20,6 +20,7 @@
   text-align: center;
   font-size: xx-large;
   color: rgb(255, 255, 255);
+
 }
 
 .navbar {
@@ -29,8 +30,8 @@
   backdrop-filter: blur(12px); /* The frosted glass effect */
   -webkit-backdrop-filter: blur(12px);
   border: 2px solid rgba(255, 255, 255, 0.25); /* Reflective edge */
+  box-shadow: 0 0 25px 9px rgba(0, 140, 255, 0.35) !important;
 
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); /* Soft depth shadow */
   width: 100%;
   display: flex;
   font-family:
@@ -138,4 +139,14 @@ body {
   font-family:
     "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+.iframe{
+  border-radius: 40px;
+  align-content: center;
+  border-color: goldenrod !important;
+  border-width:  5.7px !important;
+  margin: 5px;
+  margin-left: 120px;
+    /* Syntax: horizontal-offset vertical-offset blur-radius spread-radius color */
+  box-shadow: 0 0 29.5px 3.2px rgba(255, 183, 0, 0.5);
 }
