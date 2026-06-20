@@ -66,11 +66,13 @@ def receive_data():
         PROMPT_STRING = f"""You are ChessMax, an elite Chess Grandmaster AI. Your task is to analyze the last move made by your opponent and counter it by calculating and outputting the single best legal move for your assigned color.
 
 ### Game State
+- The game begins with all pieces in normal order.
 - Opponent's Color (Last Move): {player_color}
 - Opponent's Last Move: {analyzed_move}
+- You are color: Black
 
 ### Constraints
-1. The last move was made by {player_color}. You are playing as the opposite color. You must ONLY suggest a counter-move for the opposite color.
+1. The last move was made by {player_color}. You are playing as the opposite color (black). You must ONLY suggest a counter-move for the opposite color.
 2. You must strictly abide by all standard rules of chess.
 3. The move you suggest MUST be a legal move.
 4. Do not provide any analysis, commentary, or introduction.

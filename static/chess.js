@@ -9,6 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
     piece.id = piece.id + "-" + index;
 
     piece.addEventListener("dragstart", (e) => {
+      const playerColor = "w";
+      const pieceColor = e.target.id.startsWith("w") ? "w" : "b";
+      if (pieceColor !== playerColor) {
+        e.preventDefault();
+        return;
+      }
       e.dataTransfer.setData("text/plain", e.target.id);
     });
   });
@@ -82,7 +88,51 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+//vibe coded all down
+function parseAIMove(aiResponse) {
+  const match = aiResponse.match(/(\w+)\s+(\w+)\s+to\s+(\w)(\d)/i);
+  if (!match) return null;
+  const [, color, piece, file, rank] = match;
+  const fileMap = { a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7 };
+  const rankMap = { 1: 0, 2: 1, 3: 2, 4: 3, 5: 4, 6: 5, 7: 6, 8: 7 };
+  return {
+    color: color.toLowerCase(),
+    piece: piece.toLowerCase(),
+    targetX: fileMap[file.toLowerCase()],
+    targetY: rankMap[rank],
+  };
+}
 
+function findPieceByType(colorPrefix, pieceType) {
+  const pieces = document.querySelectorAll(
+    `[id^="${colorPrefix}-${pieceType}"]`,
+  );
+  return pieces[0];
+}
+
+function movePieceToSquare(piece, targetSquare) {
+  if (!piece || !targetSquare) return;
+  const existing = targetSquare.querySelector(".piece");
+  if (existing && existing !== piece) existing.remove();
+  targetSquare.textContent = "";
+  targetSquare.appendChild(piece);
+}
+
+function executeBotMove(aiResponse) {
+  const move = parseAIMove(aiResponse);
+  if (!move) return;
+
+  const botColor = move.color === "white" ? "w" : "b";
+  const piece = findPieceByType(botColor, move.piece);
+
+  if (piece) {
+    const targetSquare = document.getElementById(
+      `x${move.targetX}y${move.targetY}`,
+    );
+    movePieceToSquare(piece, targetSquare);
+  }
+}
+// kind of vibe coded kind of not.
 // Send data to Flask Python server
 async function sendToFlask(moveData) {
   // Packaging the payload with the exact keys you specified
@@ -114,6 +164,11 @@ async function sendToFlask(moveData) {
     console.log("ChessMax has stated:", result.ai_response);
     document.querySelector(".score").innerHTML =
       `Score: Black: ---- White: ---- Best Move: ${result.ai_response}`;
+
+    setTimeout(() => {
+      executeBotMove(result.ai_response);
+    }, 500);
+
     return result;
   } catch (error) {
     console.error("ChessMax pipeline error:", error.message);
