@@ -1,17 +1,17 @@
-import torch
-from transformers import pipeline
+import os
+from dotenv import load_dotenv
 from flask import Flask, render_template, request, jsonify
+from openai import OpenAI
 from processing import calculate
 
+load_dotenv()
+
 app = Flask(__name__)
-model_id = "google/gemma-2-2b-it"
-pipe = pipeline(
-    "text-generation",
-    model=model_id,
-    model_kwargs={"torch_dtype": torch.bfloat16},
-    device_map="auto",
+
+client = OpenAI(
+    api_key=os.getenv("OPENROUTER_API_KEY"), 
+    base_url="https://openrouter.ai/api/v1"
 )
-print("success")
 
 
 # FLASK ROUTES
@@ -85,19 +85,23 @@ def receive_data():
 - If Opponent played Black: White Knight to a4.
 - If Opponent played White: Black Queen to e5.
 
-### Next Move Response:"""
+### What is your move?"""
         messages = [
             {"role": "user", "content": PROMPT_STRING},
         ]
         print(f"Asking ChessMax about {analyzed_move} from {player_color}")
-        outputs = pipe(messages, max_new_tokens=30, clean_up_tokenization_spaces=True)
-        gemma_string = outputs[0]["generated_text"][-1]["content"]
-        print(f"{gemma_string}")
+        response_obj = client.chat.completions.create(
+            model="nvidia/nemotron-3-ultra-550b-a55b:free",
+            messages=messages,
+            max_tokens=90,
+        )
+        response_string = response_obj.choices[0].message.content
+        print(f"{response_string}")
         response = jsonify(
             {
                 "status": "success",
                 "processed_move": analyzed_move,
-                "ai_response": gemma_string,
+                "ai_response": response_string,
             }
         )
         response.headers.add("Access-Control-Allow-Origin", "*")
@@ -108,4 +112,5 @@ def receive_data():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)

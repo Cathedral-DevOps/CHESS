@@ -10,9 +10,9 @@
     <h1 id="Welcome"> Welcome to ChessBros!</h1>
     <nav class = "navbar"> <div>
         <ul>
-        <li><a id = "ChessBoardLink" href="http://192.168.1.64:5000/chess" target="_blank">Play</a></li>
-        <li><a id = "Settings" href="http://192.168.1.64:5000/settings" target="_self">Settings</a></li>
-        <li><a id = "Portfolio" href="https://cd-us.replit.app/" target="_self">Portfolios</a></li>
+        <li><a id = "ChessBoardLink" href="{{ url_for('chess') }}" target="_blank">Play</a></li>
+        <li><a id = "Settings" href="{{ url_for('settings') }}" target="_self">Settings</a></li>
+        <li><a id = "Portfolio" href="{{ url_for('portfolio') }}" target="_self">Portfolios</a></li>
      </ul>
     </nav></div>
 
