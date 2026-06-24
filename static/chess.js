@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const piecesList = document.querySelectorAll(".piece");
   const squares = document.querySelectorAll(".board-location");
   const moveHistory = [];
+  let currentSetting = localStorage.getItem("settings")
 
   // 1. Drag Start: Track piece ID & Ensure unique IDs
   piecesList.forEach((piece, index) => {
@@ -58,7 +59,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // Figure out piece name (e.g. w-pawn-3 -> pawn)
         const idParts = draggedPiece.id.split("-");
         const movedPiece = idParts[1] || "piece";
-
+        let newestMove = movedPiece + " " + xVal + " " + yVal;
+        moveHistory.push(newestMove);
         // Track the color safely
         let movedColor = "Black";
         if (
@@ -75,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const moveDescription = `${movedColor} ${movedPiece} to square (${xVal}, ${yVal})`;
         console.log(`Tracked Move: ${moveDescription}`);
-
+        if (currentSetting === "NoChessMax"){return;} else {
         // Send the updated move data directly using the key names Flask expects!
         sendToFlask({
           xCoordinate: xVal,
@@ -84,7 +86,8 @@ document.addEventListener("DOMContentLoaded", () => {
           player_color: movedColor,
           username: "Player",
           highlightedSquare: "None",
-        });
+          moveHistory: moveHistory,
+        })};
       }
     });
   });
