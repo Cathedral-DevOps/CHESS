@@ -70,6 +70,7 @@ def receive_data():
 - Opponent's Color (Last Move): {player_color}
 - Opponent's Last Move: {analyzed_move}
 - You are color: Black
+- You will receive moves such as pawn1a4. Do not be overwhelmed! pawn1 means the first pawn of the opposite player on the left-most side of the board from their point of view. 
 
 ### Constraints
 1. The last move was made by {player_color}. You are playing as the opposite color (black). You must ONLY suggest a counter-move for the opposite color.
@@ -80,18 +81,19 @@ def receive_data():
 
 ### Output Format
 [Your Color] [Piece] to [Square].
+White Knight to a4 <-- example
 
 ### Example Outputs
 - If Opponent played Black: White Knight to a4.
 - If Opponent played White: Black Queen to e5.
 
-### What is your move?"""
+### What is your move? REMEMBER YOU ARE LIMITED TO THE DEFINED FORMAT ABOVE."""
         messages = [
             {"role": "user", "content": PROMPT_STRING},
         ]
         print(f"Asking ChessMax about {analyzed_move} from {player_color}")
         response_obj = client.chat.completions.create(
-            model="nvidia/nemotron-3-ultra-550b-a55b:free",
+            model="meta-llama/llama-3.3-70b-instruct:free",
             messages=messages,
             max_tokens=90,
         )
