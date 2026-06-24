@@ -10,9 +10,10 @@
     />
   </head>
   <body>
-    <a id="Back" href="{{ url_for('templates', filename='index.html')}}" target="_self"> Back to Landing Page </a>
+    <a id="Back" href="{{ url_for('index') }}" target="_self"> Back to Landing Page </a>
     <h1>Would you like to play against ChessMax?</h1>
     <button id = "confirm"> Yes </button>
     <button id = "deny"> No </button>
   </body>
+  <script src="{{ url_for('static', filename='settings.js') }}"></script>
 </html>
