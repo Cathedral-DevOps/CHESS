@@ -93,7 +93,7 @@ White Knight to a4 <-- example
         ]
         print(f"Asking ChessMax about {analyzed_move} from {player_color}")
         response_obj = client.chat.completions.create(
-            model="meta-llama/llama-3.3-70b-instruct:free",
+            model="google/gemma-4-31b-it:free",
             messages=messages,
             max_tokens=90,
         )
