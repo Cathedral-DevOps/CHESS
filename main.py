@@ -54,8 +54,9 @@ def receive_data():
     yCoordinate = data.get("yCoordinate")
     placement = data.get("placement")
     player_color = data.get("player_color")
+    moveHistory = data.get("moveHistory")
     print(
-        f"received: {username}, {xCoordinate}, {yCoordinate}, {placement}, {player_color}"
+        f"received: {username}, {xCoordinate}, {yCoordinate}, {placement}, {player_color},{moveHistory}"
     )
     # Analysis
     try:
@@ -70,6 +71,7 @@ def receive_data():
 - Opponent's Color (Last Move): {player_color}
 - Opponent's Last Move: {analyzed_move}
 - You are color: Black
+- History of the game: {moveHistory}. This will either be provided in coordinates (ex: x2y2) or standard chess notation. If provided in coordinates, decode via considering the board from the white player's point of view in regards to where a coordinate is. X = horizontal axis, Y = vertical axis. If nothing is provided, it is the start of the game. This data is provided in an array.
 - You will receive moves such as pawn1a4. Do not be overwhelmed! pawn1 means the first pawn of the opposite player on the left-most side of the board from their point of view. 
 
 ### Constraints

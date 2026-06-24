@@ -152,6 +152,7 @@ async function sendToFlask(moveData) {
     placement: moveData.placement || placement,
     player_color: moveData.player_color || "Black",
     highlightedSquare: moveData.highlightedSquare,
+    moveHistory: moveData.moveHistory,
   };
 
   const requestOptions = {
