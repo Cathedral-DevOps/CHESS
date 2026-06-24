@@ -77,7 +77,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const moveDescription = `${movedColor} ${movedPiece} to square (${xVal}, ${yVal})`;
         console.log(`Tracked Move: ${moveDescription}`);
-        if (currentSetting === "NoChessMax"){return;} else {
+        if (currentSetting === "NoChessMax"){
+          console.log("ChessMax is disabled. Move data will not be sent to the server.");
+          return;
+        }
+        else 
+          {
         // Send the updated move data directly using the key names Flask expects!
         sendToFlask({
           xCoordinate: xVal,
