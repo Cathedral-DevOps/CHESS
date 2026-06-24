@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let highlightedSquare;
   const piecesList = document.querySelectorAll(".piece");
   const squares = document.querySelectorAll(".board-location");
+  const moveHistory = [];
 
   // 1. Drag Start: Track piece ID & Ensure unique IDs
   piecesList.forEach((piece, index) => {
