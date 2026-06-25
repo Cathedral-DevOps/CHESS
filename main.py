@@ -39,6 +39,8 @@ def settings():
     return render_template("settings.html")
 
 
+
+
 # DATA ROUTE
 @app.route("/api/receive-data", methods=["POST", "OPTIONS"])
 def receive_data():
@@ -100,7 +102,7 @@ White Knight to a4 <-- example
         ]
         print(f"-------Asking ChessMax about {analyzed_move} from {player_color}.-------")
         response_obj = client.chat.completions.create(
-            model="google/gemma-4-31b-it:free",
+            model= "openrouter/free",
             messages=messages,
             max_tokens=90,
         )
