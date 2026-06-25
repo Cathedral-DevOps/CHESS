@@ -4,6 +4,9 @@ from flask import Flask, render_template, request, jsonify
 from openai import OpenAI
 from processing import calculate
 
+
+botHistory = []
+
 load_dotenv()
 
 app = Flask(__name__)
@@ -56,12 +59,12 @@ def receive_data():
     player_color = data.get("player_color")
     moveHistory = data.get("moveHistory")
     print(
-        f"received: {username}, {xCoordinate}, {yCoordinate}, {placement}, {player_color},{moveHistory}"
+        f"--------received: {username}, {xCoordinate}, {yCoordinate}, {placement}, {player_color},{moveHistory}-------"
     )
     # Analysis
     try:
         analyzed_move = calculate(xCoordinate, yCoordinate, placement)
-        print(f"{analyzed_move}")
+        print(f"-------{analyzed_move}------")
         if not analyzed_move:
             return jsonify({"error": "returned null string or other"}), 500
         PROMPT_STRING = f"""You are ChessMax, an elite Chess Grandmaster AI. Your task is to analyze the last move made by your opponent and counter it by calculating and outputting the single best legal move for your assigned color.
@@ -72,13 +75,12 @@ def receive_data():
 - Opponent's Last Move: {analyzed_move}
 - You are color: Black
 - History of the game: White player: {moveHistory}. This will either be provided in coordinates (ex: x2y2) or standard chess notation. If provided in coordinates, decode via considering the board from the white player's point of view in regards to where a coordinate is. X = horizontal axis, Y = vertical axis. If nothing is provided, it is the start of the game. This data is provided in an array.
-- You will receive moves such as pawn1a4. Do not be overwhelmed! pawn1 means the first pawn of the opposite player on the left-most side of the board from the white player's of view. You can ignore this number for pawns.
--
+
 
 ### Constraints
 1. The last move was made by {player_color}. You are playing as the opposite color (black). You must ONLY suggest a counter-move for the opposite color.
 2. You must strictly abide by all standard rules of chess.
-3. The move you suggest MUST be a legal move.
+3. The move you suggest MUST be a legal move**.
 4. Do not provide any analysis, commentary, or introduction.
 5. You must ONLY respond in the exact format specified below.
 
@@ -91,10 +93,12 @@ White Knight to a4 <-- example
 - If Opponent played White: Black Queen to e5.
 
 ### What is your move? REMEMBER YOU ARE LIMITED TO THE DEFINED FORMAT ABOVE."""
+        print("-------PRINTING PROMPT-------")
+        print(f"-------{PROMPT_STRING}-------")
         messages = [
             {"role": "user", "content": PROMPT_STRING},
         ]
-        print(f"Asking ChessMax about {analyzed_move} from {player_color}")
+        print(f"-------Asking ChessMax about {analyzed_move} from {player_color}.-------")
         response_obj = client.chat.completions.create(
             model="google/gemma-4-31b-it:free",
             messages=messages,
@@ -102,6 +106,7 @@ White Knight to a4 <-- example
         )
         response_string = response_obj.choices[0].message.content
         print(f"{response_string}")
+        botHistory.append(f'{response_string} ,')
         response = jsonify(
             {
                 "status": "success",

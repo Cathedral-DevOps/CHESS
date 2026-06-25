@@ -12,15 +12,15 @@ def calculate(x_in, y_in, placement_in):
     # Mapping dictionary to convert x-coordinate labels (x1-x9) to chess file letters (a-h)
     # Note: x8 and x9 both map to f and h (may be a bug or UI design choice)
     x_mapping = {
-        "x0": "a",  # First column
-        "x1": "b",  # Second column
-        "x2": "c",  # Third column
-        "x3": "d",  # Fourth column
-        "x4": "e",  # Fifth column
-        "x5": "f",  # Si th column
-        "x6": "g",  # Seventh column
-        "x7": "f",  # Eighth column (maps to f)
-        "x8": "h",  # Ninth column (maps to h)
+        "x0": "A",  # First column
+        "x1": "B",  # Second column
+        "x2": "C",  # Third column
+        "x3": "D",  # Fourth column
+        "x4": "E",  # Fifth column
+        "x5": "F",  # Si th column
+        "x6": "G",  # Seventh column
+        "x7": "F",  # Eighth column (maps to f)
+        "x8": "H",  # Ninth column (maps to h)
     }
     # Mapping dictionary to convert y-coordinate labels (y1-y9) to chess rank numbers (1-9)
     y_mapping = {
@@ -35,9 +35,10 @@ def calculate(x_in, y_in, placement_in):
         "y8": "9",  # Ninth rank (invalid in standard chess)
     }
 
-    # Validate and get the piece type - use the input if it's valid, otherwise set to "invalid"
-    first = placement_in #if placement_in in listOfPieces else "invalid"
-    # Validate and get the file letter - use mapping if valid x coordinate exists, otherwise "invalid"
+    if placement_in == "pawn1":
+        first = 'pawn'
+    else:
+        first = placement_in
     second = x_mapping.get(x_in, "") if x_in in x_mapping else "invalid"
     # Validate and get the rank number - use mapping if valid y coordinate exists, otherwise "invalid"
     third = y_mapping.get(y_in, "") if y_in in y_mapping else "invalid"
