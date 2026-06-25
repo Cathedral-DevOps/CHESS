@@ -7,7 +7,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: black;
+  background: rgb(3, 0, 153), rgb(1, 0, 51);
 }
 
 .chess-container {
