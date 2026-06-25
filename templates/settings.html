@@ -3,21 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About ChessBros</title>
+    <title>ChessMax - Settings</title>
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='css/settings.css') }}"
+      href="settings.css"
     />
   </head>
   <body>
-    <ul>
-  <li><a id="Back" href="{{ url_for('home') }}">Back to Landing Page</a></li>
-</ul>
-
+    <nav class=navbar>
+        <Ul>
+            <li><a id="Back" href="{{ url_for('index') }}" > Home </a></li>
+        </Ul>
+    </nav>
     <h1>Would you like to play against ChessMax?</h1>
-    <button id = "confirm"> Yes </button>
-    <button id = "deny"> No </button>
+    <div class = "btn-container">
+    <button class = "btn" id = "confirm"> Yes </button>
+    <button class = "btn" id = "deny"> No </button>
+    </div>
   </body>
   <script src="{{ url_for('static', filename='settings.js') }}"></script>
 </html>
-

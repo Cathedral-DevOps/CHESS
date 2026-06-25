@@ -1,3 +1,73 @@
-h1 {
-  text-align: center;
+body {
+    margin: 0;
+    min-height: 100vh;
+    min-width: 100vw;
+    background: linear-gradient(rgb(81,147,252), rgb(126, 9, 235))
+}
+.btn {
+    padding: 10px 24px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-container{
+    display:flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+#confirm {
+    background-color: rgb(1, 93, 11);
+    color:white
+}
+
+#deny {
+    background-color: rgb(98, 0, 0);
+    color:white
+}
+
+#confirm:hover {
+    background-color: rgb(27, 179, 63);
+}
+
+#deny:hover {
+    background-color: rgb(255, 98,98);
+}
+
+.navbar {
+  width: 50%;
+  margin-top: 5px;
+  width: 100%;
+  display: flex;
+  font-family:
+    "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  justify-content: center;
+}
+.navbar ul {
+  list-style-type: none;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.navbar a {
+    text-decoration: none;
+    color:white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+}
+
+.navbar a:hover {
+    background-color: rgb(29, 115, 252)
+}
+h1{
+    color: white;
+    text-align: center;
+    font-size: 28px;
 }
