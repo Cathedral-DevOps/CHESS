@@ -11,14 +11,11 @@
   </head>
   <body>
     <div class="header">Play Against ChessMax</div>
-    <div class="score">Score:
-        Black:               
-
-        ----
-        White: 
-
-        ----
-        Best Move: 
+    <div class="score">
+      <div id ="Score-Title">Scores</div>
+      <div id ="White-Score">White:</div>
+      <div id ="Black-Score">Black:</div>
+      <div id ="Best-Move">Best Move: {{airesponse}}</div>
     </div>
     <div class="chess-container">
       <!--8th-->
@@ -160,6 +157,6 @@
         <div class="piece" draggable="true" id="w-rook2">♖</div>
       </div>
     </div>
-    <script src="/static/chess.js"></script>
+    <script src="{{ url_for('static', filename='chess.js') }}"></script>
   </body>
 </html>
