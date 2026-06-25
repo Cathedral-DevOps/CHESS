@@ -172,8 +172,7 @@ async function sendToFlask(moveData) {
     const result = await response.json();
     console.log("Analysis successful:", result.processed_move);
     console.log("ChessMax has stated:", result.ai_response);
-    document.querySelector(".score").innerHTML =
-      `Score: Black: ---- White: ---- Best Move: ${result.ai_response}`;
+   
 
     setTimeout(() => {
       executeBotMove(result.ai_response);
