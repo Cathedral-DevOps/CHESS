@@ -3,6 +3,17 @@ from dotenv import load_dotenv
 from flask import Flask, render_template, request, jsonify
 from openai import OpenAI
 from processing import calculate
+import firebase_admin
+from firebase_admin import credentials, firestore
+
+# Path to your downloaded service account JSON file
+cred = credentials.Certificate("path/to/service-account-file.json") 
+
+# Initialize the default Firebase Admin app
+firebase_admin.initialize_app(cred) 
+
+# Get a reference to your Firestore database
+db = firestore.client()
 
 
 botHistory = []
