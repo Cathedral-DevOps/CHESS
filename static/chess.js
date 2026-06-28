@@ -98,25 +98,25 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 //vibe coded all down
+//vibe coded all down
+
 function parseAIMove(aiResponse) {
-  const match = aiResponse.match(/(\w+)\s+(\w+)\s+to\s+(\w)(\d)/i);
+  // Updated to require the starting square, e.g. "White pawn from e2 to e4"
+  const match = aiResponse.match(/(\w+)\s+(\w+)\s+from\s+(\w)(\d)\s+to\s+(\w)(\d)/i);
   if (!match) return null;
-  const [, color, piece, file, rank] = match;
+
+  const [, color, piece, startFile, startRank, targetFile, targetRank] = match;
   const fileMap = { a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7 };
   const rankMap = { 1: 0, 2: 1, 3: 2, 4: 3, 5: 4, 6: 5, 7: 6, 8: 7 };
+
   return {
     color: color.toLowerCase(),
     piece: piece.toLowerCase(),
-    targetX: fileMap[file.toLowerCase()],
-    targetY: rankMap[rank],
+    startX: fileMap[startFile.toLowerCase()],
+    startY: rankMap[startRank],
+    targetX: fileMap[targetFile.toLowerCase()],
+    targetY: rankMap[targetRank],
   };
-}
-
-function findPieceByType(colorPrefix, pieceType) {
-  const pieces = document.querySelectorAll(
-    `[id^="${colorPrefix}-${pieceType}"]`,
-  );
-  return pieces[0];
 }
 
 function movePieceToSquare(piece, targetSquare) {
@@ -129,16 +129,20 @@ function movePieceToSquare(piece, targetSquare) {
 
 function executeBotMove(aiResponse) {
   const move = parseAIMove(aiResponse);
-  if (!move) return;
+  if (!move) {
+    console.error("AI response format invalid. Tell Flask to send 'Color piece from Start to Target'.");
+    return;
+  }
 
-  const botColor = move.color === "white" ? "w" : "b";
-  const piece = findPieceByType(botColor, move.piece);
+  // Find the specific piece sitting on the starting square instead of guessing by type
+  const startSquare = document.getElementById(`x${move.startX}y${move.startY}`);
+  const piece = startSquare ? startSquare.querySelector(".piece") : null;
 
   if (piece) {
-    const targetSquare = document.getElementById(
-      `x${move.targetX}y${move.targetY}`,
-    );
+    const targetSquare = document.getElementById(`x${move.targetX}y${move.targetY}`);
     movePieceToSquare(piece, targetSquare);
+  } else {
+    console.error("Could not find the piece at the starting square!");
   }
 }
 // kind of vibe coded kind of not.

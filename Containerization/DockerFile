@@ -1,5 +1,5 @@
 #in case of containerization
-FROM python:3.10-slim
+FROM python:3.9.1
 
 # Set working directory inside the container
 WORKDIR /CHESS
