@@ -98,22 +98,19 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 //vibe coded all down
-//vibe coded all down
 
 function parseAIMove(aiResponse) {
-  // Updated to require the starting square, e.g. "White pawn from e2 to e4"
-  const match = aiResponse.match(/(\w+)\s+(\w+)\s+from\s+(\w)(\d)\s+to\s+(\w)(\d)/i);
+  // Matches the format: "Black Knight to f6"
+  const match = aiResponse.match(/(\w+)\s+(\w+)\s+to\s+(\w)(\d)/i);
   if (!match) return null;
 
-  const [, color, piece, startFile, startRank, targetFile, targetRank] = match;
+  const [, color, piece, targetFile, targetRank] = match;
   const fileMap = { a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7 };
   const rankMap = { 1: 0, 2: 1, 3: 2, 4: 3, 5: 4, 6: 5, 7: 6, 8: 7 };
 
   return {
     color: color.toLowerCase(),
     piece: piece.toLowerCase(),
-    startX: fileMap[startFile.toLowerCase()],
-    startY: rankMap[startRank],
     targetX: fileMap[targetFile.toLowerCase()],
     targetY: rankMap[targetRank],
   };
@@ -127,24 +124,65 @@ function movePieceToSquare(piece, targetSquare) {
   targetSquare.appendChild(piece);
 }
 
+function findCorrectPiece(color, pieceType, targetX, targetY) {
+  const colorPrefix = color === 'white' ? 'w-' : 'b-';
+  // Gather every piece of this type (e.g., all black knights)
+  const candidates = Array.from(document.querySelectorAll(`[id^="${colorPrefix}${pieceType}"]`));
+  
+  for (const piece of candidates) {
+    const parent = piece.parentElement;
+    if (!parent || !parent.id.startsWith('x')) continue;
+    
+    // Extract current coordinates from the square ID (e.g., "x1y7" -> x=1, y=7)
+    const currX = parseInt(parent.id.charAt(1));
+    const currY = parseInt(parent.id.charAt(3));
+    
+    const dx = Math.abs(targetX - currX);
+    const dy = Math.abs(targetY - currY);
+
+    // Basic distance validation to find the piece that can legally make this move
+    let canMove = false;
+    switch (pieceType) {
+      case 'knight': canMove = (dx === 1 && dy === 2) || (dx === 2 && dy === 1); break;
+      case 'bishop': canMove = (dx === dy); break;
+      case 'rook': canMove = (dx === 0 || dy === 0); break;
+      case 'queen': canMove = (dx === dy) || (dx === 0 || dy === 0); break;
+      case 'king': canMove = (dx <= 1 && dy <= 1); break;
+      case 'pawn': 
+        const direction = color === 'white' ? 1 : -1;
+        const yDiff = targetY - currY;
+        if (dx === 0 && (yDiff === direction || (yDiff === 2 * direction && (currY === 1 || currY === 6)))) {
+          canMove = true; // Moving straight forward
+        } else if (dx === 1 && yDiff === direction) {
+          canMove = true; // Diagonal capture
+        }
+        break;
+    }
+
+    if (canMove) return piece; // Found the right one!
+  }
+  
+  return candidates[0] || null; // Fallback just in case
+}
+
 function executeBotMove(aiResponse) {
   const move = parseAIMove(aiResponse);
   if (!move) {
-    console.error("AI response format invalid. Tell Flask to send 'Color piece from Start to Target'.");
+    console.error("AI response format invalid. Expected 'Color piece to Square'.");
     return;
   }
 
-  // Find the specific piece sitting on the starting square instead of guessing by type
-  const startSquare = document.getElementById(`x${move.startX}y${move.startY}`);
-  const piece = startSquare ? startSquare.querySelector(".piece") : null;
+  // Use our smart checker to find the piece instead of blindly guessing
+  const pieceToMove = findCorrectPiece(move.color, move.piece, move.targetX, move.targetY);
 
-  if (piece) {
+  if (pieceToMove) {
     const targetSquare = document.getElementById(`x${move.targetX}y${move.targetY}`);
-    movePieceToSquare(piece, targetSquare);
+    movePieceToSquare(pieceToMove, targetSquare);
   } else {
-    console.error("Could not find the piece at the starting square!");
+    console.error(`Could not find a valid ${move.color} ${move.piece} to move!`);
   }
 }
+
 // kind of vibe coded kind of not.
 // Send data to Flask Python server
 async function sendToFlask(moveData) {
