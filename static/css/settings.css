@@ -42,9 +42,10 @@ body {
   margin-top: 5px;
   width: 100%;
   display: flex;
-  font-family:
-    "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: "Stack Sans Text", sans-serif; 
+  font-optical-sizing: auto; 
+  font-weight: 700; /*bold*/
+  font-style: normal;
   justify-content: center;
 }
 .navbar ul {
