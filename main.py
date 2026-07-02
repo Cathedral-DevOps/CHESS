@@ -70,7 +70,7 @@ def receive_data():
         print(f"-------{analyzed_move}------")
         if not analyzed_move:
             return jsonify({"error": "returned null string or other"}), 500
-        PROMPT_STRING = f"""You are ChessMax, an elite Chess Grandmaster AI. Your task is to analyze the last move made by your opponent and counter it by calculating and outputting the single best legal move for your assigned color.
+        PROMPT_STRING = f"""You are Dovetail, an elite Chess Grandmaster AI. Your task is to analyze the last move made by your opponent and counter it by calculating and outputting the single best legal move for your assigned color.
 
 ### Game State
 - The game begins with all pieces in normal order.
@@ -101,7 +101,7 @@ White Knight to a4 <-- example
         messages = [
             {"role": "user", "content": PROMPT_STRING},
         ]
-        print(f"-------Asking ChessMax about {analyzed_move} from {player_color}.-------")
+        print(f"-------Asking Dovetail about {analyzed_move} from {player_color}.-------")
         response_obj = client.chat.completions.create(
             model= "google/gemma-4-31b-it:free",
             messages=messages,

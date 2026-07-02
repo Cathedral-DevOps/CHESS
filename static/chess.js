@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const moveDescription = `${movedColor} ${movedPiece} to square (${xVal}, ${yVal})`;
         console.log(`Tracked Move: ${moveDescription}`);
         if (currentSetting === "NoChessMax"){
-          console.log("ChessMax is disabled. Move data will not be sent to the server.");
+          console.log("Dovetail is disabled. Move data will not be sent to the server.");
           return;
         }
         else 
@@ -213,7 +213,7 @@ async function sendToFlask(moveData) {
     }
     const result = await response.json();
     console.log("Analysis successful:", result.processed_move);
-    console.log("ChessMax has stated:", result.ai_response);
+    console.log("Dovetail has stated:", result.ai_response);
    
 
     setTimeout(() => {
@@ -222,6 +222,6 @@ async function sendToFlask(moveData) {
 
     return result;
   } catch (error) {
-    console.error("ChessMax pipeline error:", error.message);
+    console.error("Dovetail pipeline error:", error.message);
   }
 }
