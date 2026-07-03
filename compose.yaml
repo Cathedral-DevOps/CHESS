@@ -1,0 +1,12 @@
+services:
+  web:
+    build: .
+    container_name: dovetail_flask_app
+    restart: always
+    ports:
+      - "127.0.0.1:8001:5000"
+    env_file:
+      - .env
+    environment:
+      - FLASK_ENV=production
+      - PYTHONUNBUFFERED=1
