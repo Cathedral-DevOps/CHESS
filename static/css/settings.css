@@ -2,7 +2,7 @@ body {
     margin: 0;
     min-height: 100vh;
     min-width: 100vw;
-    background: linear-gradient(rgb(81,147,252), rgb(126, 9, 235))
+    background: linear-gradient(rgb(0, 20, 51), rgb(3, 0, 39))
 }
 .btn {
     padding: 10px 24px;
@@ -27,6 +27,7 @@ body {
 #deny {
     background-color: rgb(98, 0, 0);
     color:white
+  
 }
 
 #confirm:hover {
@@ -47,6 +48,7 @@ body {
   font-weight: 700; /*bold*/
   font-style: normal;
   justify-content: center;
+  border-radius: 5px;
 }
 .navbar ul {
   list-style-type: none;
@@ -71,4 +73,8 @@ h1{
     color: white;
     text-align: center;
     font-size: 28px;
+      font-family: "Stack Sans Text", sans-serif; 
+  font-optical-sizing: auto; 
+  font-weight: 700; /*bold*/
+  font-style: normal;
 }

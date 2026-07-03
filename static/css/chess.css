@@ -7,7 +7,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: rgb(3, 0, 153), rgb(1, 0, 51);
+  background: rgb(0, 0, 0);
   font-family: "Stack Sans Text", sans-serif; 
   font-optical-sizing: auto; 
   font-weight: 700; /*bold*/
@@ -124,16 +124,17 @@ body {
 }
 
 .header {
-  position: absolute;
+  position: flex;
   top: 40px;
   left: 25px;
   width: 150px;
   font-size: 75px;
+  margin-right:290px;
+  margin-bottom:1010px;
   color: rgb(153, 115, 0);
   text-align: center;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  font-weight: bold;
+  font-family: "Stack Sans Notch", sans-serif;
+  font-weight: 700;
 }
 .score {
   display:flex;
@@ -145,10 +146,10 @@ body {
 }
 
 #Score-Title {
-  margin: 10px;
+  margin: 4px;
   padding: 10px;
-  background: linear-gradient(rgb(47, 0, 88),rgb(66, 135, 245));
-  border-radius: 6px;
+  background: linear-gradient(rgb(0, 0, 0),rgb(100, 100, 100));
+  border-radius: 7px;
   position:absolute;
   top: 297px;
   left: 150px;
@@ -162,7 +163,7 @@ body {
 #White-Score{
   margin: 2%;
   padding: 20px;
-  background: linear-gradient(rgb(36, 105, 201),rgb(148, 82, 255));
+  background: linear-gradient(rgb(0, 0, 0),rgb(100, 100, 100));
   border-radius: 6px;
   position:absolute;
   top: 370px;
@@ -178,7 +179,7 @@ body {
 #Black-Score{
   margin: 2%;
   padding: 20px;
-  background: linear-gradient(rgb(101, 12, 255), rgb(209, 138, 7));
+  background: linear-gradient(rgb(0, 0, 0),rgb(100, 100, 100));
   border-radius: 6px;
   position:absolute;
   top: 460px;

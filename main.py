@@ -6,7 +6,7 @@ from processing import calculate
 
 
 
-botHistory = []
+History = ["Beginning of the game."]
 
 load_dotenv()
 
@@ -40,7 +40,8 @@ def settings():
     return render_template("settings.html")
 
 
-
+if History is None:
+    History = ["Beginning of the game."]
 
 # DATA ROUTE
 @app.route("/api/receive-data", methods=["POST", "OPTIONS"])
@@ -77,7 +78,7 @@ def receive_data():
 - Opponent's Color (Last Move): {player_color}
 - Opponent's Last Move: {analyzed_move}
 - You are color: Black
-- History of the game: White player: {moveHistory}. This will either be provided in coordinates (ex: x2y2) or standard chess notation. If provided in coordinates, decode via considering the board from the white player's point of view in regards to where a coordinate is. X = horizontal axis, Y = vertical axis. If nothing is provided, it is the start of the game. This data is provided in an array.
+- History of the game: White player: {History}. This will either be provided in coordinates (ex: x2y2) or standard chess notation. If provided in coordinates, decode via considering the board from the white player's point of view in regards to where a coordinate is. X = horizontal axis, Y = vertical axis. If nothing is provided, it is the start of the game. This data is provided in an array.
 
 
 ### Constraints
@@ -109,7 +110,12 @@ White Knight to a4 <-- example
         )
         response_string = response_obj.choices[0].message.content
         print(f"{response_string}")
-        botHistory.append(f'{response_string} ,')
+        
+        if response_string is not None and analyzed_move is not None:
+         History.append(f'{analyzed_move} from White ,' + " " f'{response_string} from Black')
+        elif response_string is None and analyzed_move is None:
+         History.append(f'Null move from White ,' + " " f'Null move from Black')
+        
         response = jsonify(
             {
                 "status": "success",
