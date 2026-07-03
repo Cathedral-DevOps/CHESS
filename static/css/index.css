@@ -5,46 +5,22 @@
 
 
 
-#Welcome {
-  display: flex;
-  justify-content: center;
-  margin-top: 15px;
-  margin: 4px;
-  margin-left: 25%;
-  width: 50%;
-  background: rgba(255, 255, 255, 0.15); /* Translucent base */
-  backdrop-filter: blur(12px); /* The frosted glass effect */
-  -webkit-backdrop-filter: blur(12px);
-  border: 2px solid rgba(255, 255, 255, 0.25); /* Reflective edge */
-  border-radius: 13px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); /* Soft depth shadow */
-  margin-top: 20px;
-  text-align: center;
-  font-size: xx-large;
-  font-family: "Stack Sans Notch", sans-serif; 
-  font-optical-sizing: auto; 
-  font-weight: 700; /*bold*/
-  font-style: normal;
-  color: rgb(255, 255, 255);
-
-}
-
 .navbar {
   width: 50%;
-  margin-top: 5px;
+  margin-top: 0px;
   background: rgba(255, 255, 255, 0.15); /* Translucent base */
   backdrop-filter: blur(12px); /* The frosted glass effect */
   -webkit-backdrop-filter: blur(12px);
   border: 2px solid rgba(255, 255, 255, 0.25); /* Reflective edge */
-  box-shadow: 0 0 25px 9px rgba(0, 140, 255, 0.35) !important;
+  box-shadow: 0 0 5px 0.5px rgba(109, 104, 77, 0.35) !important;
 
   width: 100%;
   display: flex;
-  font-family: "Stack Sans Text", sans-serif; 
-  font-optical-sizing: auto; 
+  font-family: "Stack Sans Text", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 700; /*bold*/
   font-style: normal;
-  justify-content: center;
+  justify-content: left;
 }
 
 .navbar ul {
@@ -61,23 +37,44 @@
 
 .navbar a {
   display: block;
-  color: rgb(91, 91, 91) !important;
+  color: rgb(211, 211, 211) !important;
   text-decoration: none;
-  padding: 15px;
+  padding: 8px;
+  margin-left: 25px;
+  margin-top: 15px;
   text-align: center;
 }
 
 .navbar a:hover {
-  background-color: whitesmoke;
-  color: rgb(29, 150, 255) !important;
+  background-color: rgb(158, 158, 158);
+  color: rgb(179, 146, 0) !important;
+  transform: translateY(-4px);
+  transition: all 0.2s ease;
+  border-radius: 5px;
+}
+#Welcome {
+  display: flex;
+  margin-left: 490px;
+  text-align: right;
+  font-size: large;
+  font-family: "Stack Sans Notch", sans-serif;
+  font-weight: 700; /*bold*/
+  font-style: italic;
+  color: rgb(255, 255, 255) !important;
 }
 
 body {
-  background-image: linear-gradient(to right, #78bafc, #0b4391d2);
-  font-family: "Stack Sans Text", sans-serif; 
-  font-optical-sizing: auto; 
+  background: linear-gradient(
+    to right in oklch,
+    rgb(4, 5, 19),
+    rgb(28, 28, 29)
+  );
+  background-size: cover;
+  font-family: "Stack Sans Text", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 700; /*bold*/
   font-style: normal;
+  line-height: 1.6;
 }
 
 #Description {
@@ -97,20 +94,24 @@ body {
   padding: 15px;
   text-align: center;
   font-size: 30px;
-  font-family: "Stack Sans Text", sans-serif; 
-  font-optical-sizing: auto; 
+  font-family: "Stack Sans Text", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 700; /*bold*/
   font-style: normal;
   color: rgb(255, 255, 255);
+  
 }
+
 
 #DescriptionParagraph {
   padding: 5px;
   margin-top: 6.7px;
+  margin-left: 10%;
+  margin-right: 10%;
   text-align: center;
-  font-family: "Stack Sans Text", sans-serif; 
-  font-optical-sizing: auto; 
-  font-weight: 700; /*bold*/
+  font-family: "Stack Sans Text", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400; /*bold*/
   font-style: normal;
 
   font-size: 17.5px;
@@ -134,31 +135,49 @@ body {
   border: 2px solid rgba(255, 255, 255, 0.25); /* Reflective edge */
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); /* Soft depth shadow */
   text-align: center;
-  font-family: "Stack Sans Notch", sans-serif; 
-  font-optical-sizing: auto; 
+  font-family: "Stack Sans Notch", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 700; /*bold*/
   font-style: normal;
   font-size: 30px;
   color: rgb(255, 255, 255);
 }
 #AIdescriptionparagraph {
-  margin-top: 5px;
+  margin-top: 15px;
+  margin-left: 10%;
+  margin-right: 10%;
   padding: 5px;
   text-align: center;
-  font-size: 15px;
+  font-size: 17.5px;
   color: white;
-  font-family: "Stack Sans Text", sans-serif; 
-  font-optical-sizing: auto; 
-  font-weight: 700; /*bold*/
+  font-family: "Stack Sans Text", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400; /*bold*/
   font-style: normal;
 }
-.iframe{
-  border-radius: 40px;
-  align-content: center;
-  border-color: goldenrod !important;
-  border-width:  5.7px !important;
-  margin: 5px;
-  margin-left: 120px;
-    /* Syntax: horizontal-offset vertical-offset blur-radius spread-radius color */
-  box-shadow: 0 0 29.5px 3.2px rgba(255, 183, 0, 0.5);
+
+#ChessImage {
+  display: flex;
+  justify-content: center;
+  margin: -150px;
+  margin-left: 25%;
+  width: 50%;
+  border-radius: 20px;
+}
+
+.ChessImage2 img {
+  width: 105px;
+  height: 36px;
+  object-fit: cover;
+  display: block;
+}
+
+#Demo {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  margin-left: 25%;
+  width: 50%;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1), 0 8px 32px rgba(255, 255, 255, 0.1); 
 }

@@ -4,35 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dovetail Chess</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chess.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
 </head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Stack+Sans+Headline:wght@200..700&family=Stack+Sans+Notch:wght@200..700&family=Stack+Sans+Text:wght@200..700&display=swap');
 </style>
 <body>
-    <h1 id="Welcome"> Welcome to Dovetail Chess!</h1>
-    <nav class = "navbar"> <div>
-        <ul>
+    
+    <nav class = "navbar">
+        <a href="#" class="ChessImage2"><img id ="ChessImage2" src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo Image"></a>
+        <div>
+        
+        <ul>   
         <li><a id = "ChessBoardLink" href="{{ url_for('chess') }}" target="_blank">Play</a></li>
         <li><a id = "Settings" href="{{ url_for('settings') }}" target="_self">Settings</a></li>
         <li><a id = "Portfolio" href="{{ url_for('portfolio') }}" target="_self">Portfolios</a></li>
+        <li><a id="Welcome"> Welcome to Dovetail Chess!</a></li>
      </ul>
     </nav></div>
-
+    <!-- <h1 id="Welcome"> Welcome to Dovetail Chess!</h1> -->
     <h2 id="Description">About The Developers Behind Dovetail Chess</h2>
 
-    <p><div id="DescriptionParagraph"> Dovetail Chess is a project by two high school sophomores, in which we have designed a game where you can play chess against an AI or your friend. We have also designed an AI that can give you the best possible move in your position (Toggled on by default).</div></p>
-    <iframe class = "iframe"src="https://cd-us.replit.app/" title="Developer Website"
-        width="90%" 
-        height="400" 
-        style="border: 2px solid darkblue" 
-    >
-    </iframe>
+    <p><div id="DescriptionParagraph"> Dovetail Chess is a project by two high school sophomores, in which we have designed a game where you can play chess against an AI. We have also previously designed an AI that can give you the best possible move in your position.</div></p>
+   <img id="ChessImage" src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo Image">
 
 <h2 id="ChessMax">Meet the AI Behind the Scenes</h2>
-<p><div id="AIdescriptionparagraph">The AI behind the scenes goes by two names that we have given him, Dovetail, as of writing this, he is currently being trained and having his base model code reverse-engineered as we had previously vibe-coded him.</div></p>
-
-<script src="index.js"></script>
+<p><div id="AIdescriptionparagraph">The AI behind the scenes goes by the name Dovetail. Dovetail is based off of pinging an LLM via Openrouter.</div></p>
+    <img id="Demo" src="{{ url_for('static', filename='images/code.png') }}" alt="Demo Image">
+<script src="{{ url_for('static', filename='chess.js') }}"></script>
 
 </body>
 </html>
