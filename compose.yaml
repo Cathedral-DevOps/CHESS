@@ -2,7 +2,7 @@ services:
   web:
     build: .
     container_name: dovetail_flask_app
-    restart: always
+    restart: unless-stopped
     ports:
       - "127.0.0.1:8001:5000"
     env_file:
