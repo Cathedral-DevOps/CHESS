@@ -23,6 +23,9 @@ client = OpenAI(
 def home():
     return render_template("index.html")
 
+@app.route("/webhook",methods=["POST"])
+def webhook():
+    return "OK", 200
 
 # NEW ROUTES FOR NEW PAGES
 @app.route("/chess")
@@ -114,7 +117,7 @@ White Knight to a4 <-- example
         if response_string is not None and analyzed_move is not None:
          History.append(f'{analyzed_move} from White ,' + " " f'{response_string} from Black')
         elif response_string is None and analyzed_move is None:
-         History.append(f'Null move from White ,' + " " f'Null move from Black')
+         History.append('Null move from White ,' + " " 'Null move from Black')
         
         response = jsonify(
             {
@@ -133,3 +136,5 @@ White Knight to a4 <-- example
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
+#This is a test comment to test the webhook.
