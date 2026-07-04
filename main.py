@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from flask import Flask, render_template, request, jsonify
 from openai import OpenAI
 from processing import calculate
-
+import subprocess
 
 
 History = ["Beginning of the game."]
@@ -25,7 +25,7 @@ def home():
 
 @app.route("/webhook",methods=["POST"])
 def webhook():
-    return "OK", 200
+   return "SUCCESS", 200
 
 # NEW ROUTES FOR NEW PAGES
 @app.route("/chess")
