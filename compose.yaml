@@ -10,9 +10,6 @@ services:
     environment:
       - FLASK_ENV=production
       - PYTHONUNBUFFERED=1
-    resources:
-        limits:
-          memory: 256M    # The maximum RAM the container can use
-        reservations:
-          memory: 56M    # The baseline RAM allocated to the containerresources:
+    mem_limit: 512m
+    mem_reservation: 256m # The baseline RAM allocated to the containerresources:
       
