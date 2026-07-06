@@ -1,18 +1,34 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/portfolio.css') }}"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dovetail - About Us</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/portfolio.css') }}">
     <style>
-@import url('https://fonts.googleapis.com/css2?family=Stack+Sans+Headline:wght@200..700&family=Stack+Sans+Notch:wght@200..700&family=Stack+Sans+Text:wght@200..700&display=swap');
-</style>
-    <title>Dovetail Chess - Developer Portfolios</title>
-  </head>
-  <body>
-    this is a second discription
-  </body>
+    @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+  </style>
+</head>
+<body>
+    <h1 class= "headers" id = "about-us">About Us</h1>
+    <div class = "AM">
+        <img class = "img-Mathew" src="{{ url_for('static', filename='images/Mathew-PFP.png') }}" alt="Aditya Mathew">
+     <div>
+       <h2 class = "headers"> Aditya Mathew</h2>
+       <div class = "Descriptions">
+         Hello, My name is Aditya Mathew. I am a student at Lubbock High and love my Catholic Faith. I am a programmer and like working with C#,  kotlin, swift, python, and other programming languages. I also like machine learning, and have a little programming company I'm trying to start called Cathedral. If you would like to contact me, please email me at <strong> iesushominumsalvator14@gmail.com. </strong> I hope you enjoy me and Kian's project!
+       </div>
+     </div>
+    </div>
+    <div class = "KPJ">
+        <img class = "img-Kian" src="{{ url_for('static', filename='images/Discord-PFP.png') }}" alt="Kian Pakzad Jafarabadi">
+        <div>
+            <h2 class = "headers"> Kian Pakzad Jafarabadi</h2>
+          <div class = "KDescriptions">
+           Hello! I'm Kian Pakzad Jafarabadi, a student at Lubbock High who loves video editing and 3D modeling. 
+           I have experience in C#, HTML, CSS, JS, Python, and some other languages. I am looking for internships and opportunities to gain experience and build my portfolio. If you would like to contact me, please email me at <strong> kian.pakzadjafarabadi1190@gmail.com. </strong> I hope you enjoy our project!  
+          </div>
+        </div>
+    </div>
+</body>
 </html>
