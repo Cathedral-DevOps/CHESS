@@ -24,6 +24,7 @@ def data_reset():
     takenHistory = ["Beginning of the game."]
     PieceTaken = "Start of Game"
     MAX_DATA_LIST = []
+    print("DATA_RESET_COMPLETE")
 
 # FLASK ROUTES
 @app.route("/")
