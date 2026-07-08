@@ -2,12 +2,12 @@ import os
 from dotenv import load_dotenv
 from flask import Flask, render_template, request, jsonify
 from openai import OpenAI
-from processing import calculate
-import subprocess
+from processing import calculate, update_game_state
 
 
 History = ["Beginning of the game."]
-
+takenHistory = ["Beginning of the game."]
+PieceTaken = "Start of Game"
 load_dotenv()
 
 app = Flask(__name__)
@@ -76,30 +76,31 @@ def receive_data():
             return jsonify({"error": "returned null string or other"}), 500
         PROMPT_STRING = f"""You are Dovetail, an elite Chess Grandmaster AI. Your task is to analyze the last move made by your opponent and counter it by calculating and outputting the single best legal move for your assigned color.
 
-### Game State
-- The game begins with all pieces in normal order.
-- Opponent's Color (Last Move): {player_color}
-- Opponent's Last Move: {analyzed_move}
-- You are color: Black
-- History of the game: White player: {History}. This will either be provided in coordinates (ex: x2y2) or standard chess notation. If provided in coordinates, decode via considering the board from the white player's point of view in regards to where a coordinate is. X = horizontal axis, Y = vertical axis. If nothing is provided, it is the start of the game. This data is provided in an array.
+        ### Game State
+        - The game begins with all pieces in normal order.
+        - Opponent's Color (Last Move): {player_color}
+        - Opponent's Last Move: {analyzed_move}
+        - You are color: Black
+        - History of the game: White player: {History}. This will either be provided in coordinates (ex: x2y2) or standard chess notation. If provided in coordinates, decode via considering the board from the white player's point of view in regards to where a coordinate is. X = horizontal axis, Y = vertical axis. If nothing is provided, it is the start of the game. This data is provided in an array.
+        - Your piece last taken (if any): {PieceTaken}.
+        - Your pieces taken (if any): {takenHistory}.
 
+        ### Constraints
+        1. The last move was made by {player_color}. You are playing as the opposite color (black). You must ONLY suggest a counter-move for the opposite color.
+        2. You must strictly abide by all standard rules of chess.
+        3. The move you suggest MUST be a legal move**.
+        4. Do not provide any analysis, commentary, or introduction.
+        5. You must ONLY respond in the exact format specified below.
 
-### Constraints
-1. The last move was made by {player_color}. You are playing as the opposite color (black). You must ONLY suggest a counter-move for the opposite color.
-2. You must strictly abide by all standard rules of chess.
-3. The move you suggest MUST be a legal move**.
-4. Do not provide any analysis, commentary, or introduction.
-5. You must ONLY respond in the exact format specified below.
+        ### Output Format
+        [Your Color] [Piece] to [Square].
+        White Knight to a4 <-- example
 
-### Output Format
-[Your Color] [Piece] to [Square].
-White Knight to a4 <-- example
+        ### Example Outputs
+        - If Opponent played Black: White Knight to a4.
+        - If Opponent played White: Black Queen to e5.
 
-### Example Outputs
-- If Opponent played Black: White Knight to a4.
-- If Opponent played White: Black Queen to e5.
-
-### What is your move? REMEMBER YOU ARE LIMITED TO THE DEFINED FORMAT ABOVE."""
+        ### What is your move? REMEMBER YOU ARE LIMITED TO THE DEFINED FORMAT ABOVE."""
         print("-------PRINTING PROMPT-------")
         print(f"-------{PROMPT_STRING}-------")
         messages = [
@@ -107,18 +108,16 @@ White Knight to a4 <-- example
         ]
         print(f"-------Asking Dovetail about {analyzed_move} from {player_color}.-------")
         response_obj = client.chat.completions.create(
-            model= "google/gemma-4-31b-it:free",
+            model= "google/gemini-3.5-flash",
             messages=messages,
-            max_tokens=90,
+            max_tokens=9,
         )
         response_string = response_obj.choices[0].message.content
         print(f"{response_string}")
         
-        if response_string is not None and analyzed_move is not None:
-         History.append(f'{analyzed_move} from White ,' + " " f'{response_string} from Black')
-        elif response_string is None and analyzed_move is None:
-         History.append('Null move from White ,' + " " 'Null move from Black')
-        
+        update_game_state(analyzed_move, response_string, History, takenHistory)
+        print("TAKEN HISTORY: " + f"{takenHistory}")
+
         response = jsonify(
             {
                 "status": "success",

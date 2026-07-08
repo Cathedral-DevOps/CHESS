@@ -43,6 +43,8 @@ body {
     background-size: 400% 400%;
 
     animation: gradientMove 20s ease infinite;
+
+
 }
 
 @keyframes gradientMove {

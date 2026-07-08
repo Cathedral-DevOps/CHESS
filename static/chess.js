@@ -1,3 +1,14 @@
+
+// AI Content
+// JavaScript was by far the hardest part of this project, especially because we do not have full or any real knowledge of the lang.
+// I decided that it was okay to use AI for certain parts of this to make up for time, and then learn what everything does so
+// I actually understand everything and not just ai it all like a bum. Plus, I can reuse this code for future projects!
+function normalizePieceName(pieceId) {
+  const rawPiece = pieceId.split("-")[1] || "piece";
+  const match = rawPiece.match(/[a-z]+/i);
+  return (match ? match[0] : "piece").toLowerCase();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   let highlightedSquare;
   const piecesList = document.querySelectorAll(".piece");
@@ -56,9 +67,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const xVal = "x" + squareId.charAt(1);
         const yVal = "y" + squareId.charAt(3);
 
-        // Figure out piece name (e.g. w-pawn-3 -> pawn)
-        const idParts = draggedPiece.id.split("-");
-        const movedPiece = idParts[1] || "piece";
+        // Figure out piece name (e.g. w-pawn5-3 -> pawn)
+        const movedPiece = normalizePieceName(draggedPiece.id);
         let newestMove = movedPiece + " " + xVal + " " + yVal;
         moveHistory.push(newestMove);
         // Track the color safely
