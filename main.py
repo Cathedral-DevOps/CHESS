@@ -4,10 +4,11 @@ from flask import Flask, render_template, request, jsonify
 from openai import OpenAI
 from processing import calculate, update_game_state
 
-
+#Var
 History = ["Beginning of the game."]
 takenHistory = ["Beginning of the game."]
 PieceTaken = "Start of Game"
+MAX_DATA_LIST = []
 load_dotenv()
 
 app = Flask(__name__)
@@ -17,6 +18,12 @@ client = OpenAI(
     base_url="https://openrouter.ai/api/v1"
 )
 
+def data_reset():
+    global History, takenHistory, PieceTaken, MAX_DATA_LIST
+    History = ["Beginning of the game."]
+    takenHistory = ["Beginning of the game."]
+    PieceTaken = "Start of Game"
+    MAX_DATA_LIST = []
 
 # FLASK ROUTES
 @app.route("/")
@@ -30,6 +37,7 @@ def webhook():
 # NEW ROUTES FOR NEW PAGES
 @app.route("/chess")
 def chess():
+    data_reset()
     return render_template("chess.html", content="None")
 
 
@@ -117,7 +125,8 @@ def receive_data():
         
         update_game_state(analyzed_move, response_string, History, takenHistory)
         print("TAKEN HISTORY: " + f"{takenHistory}")
-
+        MAX_DATA_LIST.append(f"{takenHistory}" + " " + f"{History}")
+        print(MAX_DATA_LIST)
         response = jsonify(
             {
                 "status": "success",
