@@ -110,8 +110,6 @@ def receive_data():
         - If Opponent played White: Black Queen to e5.
 
         ### What is your move? REMEMBER YOU ARE LIMITED TO THE DEFINED FORMAT ABOVE."""
-        print("-------PRINTING PROMPT-------")
-        print(f"-------{PROMPT_STRING}-------")
         messages = [
             {"role": "user", "content": PROMPT_STRING},
         ]
