@@ -145,6 +145,13 @@ body {
   font-weight: bold;
 }
 
+#Score-Title,
+#White-Score,
+#Black-Score,
+#Best-Move {
+  z-index: 30;
+}
+
 #Score-Title {
   margin: 4px;
   padding: 10px;

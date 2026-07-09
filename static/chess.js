@@ -229,8 +229,11 @@ async function sendToFlask(moveData) {
     console.log("Analysis successful:", result.processed_move);
     console.log("Dovetail has stated:", result.ai_response);
 
-    if (result.whitePoints !== undefined){
-      document.getElementById("White-Score").textContent= "White: " +result.whitePoints;
+    if (result.whitePoints !== undefined) {
+      const whiteScoreEl = document.getElementById("White-Score");
+      if (whiteScoreEl) {
+        whiteScoreEl.textContent = "White: " + result.whitePoints;
+      }
     }
    
 

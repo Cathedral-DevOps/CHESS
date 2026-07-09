@@ -22,12 +22,13 @@ client = OpenAI(
 )
 
 def data_reset():
-    global History, takenHistory, PieceTaken, MAX_DATA_LIST, BOT_HISTORY
+    global History, takenHistory, PieceTaken, MAX_DATA_LIST, BOT_HISTORY, whitePoints
     History = ["Beginning of the game."]
     takenHistory = ["Beginning of the game."]
     PieceTaken = "Start of Game"
     MAX_DATA_LIST = []
     BOT_HISTORY=["Beginning of the game."]
+    whitePoints = 0
     print("DATA_RESET_COMPLETE")
 
 # FLASK ROUTES
