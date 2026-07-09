@@ -9,6 +9,9 @@ History = ["Beginning of the game."]
 takenHistory = ["Beginning of the game."]
 PieceTaken = "Start of Game"
 MAX_DATA_LIST = []
+BOT_HISTORY=["Beginning of the game."]
+whitePoints = 0
+
 load_dotenv()
 
 app = Flask(__name__)
@@ -19,11 +22,12 @@ client = OpenAI(
 )
 
 def data_reset():
-    global History, takenHistory, PieceTaken, MAX_DATA_LIST
+    global History, takenHistory, PieceTaken, MAX_DATA_LIST, BOT_HISTORY
     History = ["Beginning of the game."]
     takenHistory = ["Beginning of the game."]
     PieceTaken = "Start of Game"
     MAX_DATA_LIST = []
+    BOT_HISTORY=["Beginning of the game."]
     print("DATA_RESET_COMPLETE")
 
 # FLASK ROUTES
@@ -58,6 +62,7 @@ if History is None:
 # DATA ROUTE
 @app.route("/api/receive-data", methods=["POST", "OPTIONS"])
 def receive_data():
+    global whitePoints
 
     if request.method == "OPTIONS":
         response = jsonify({"status": "preflight"})
@@ -91,6 +96,7 @@ def receive_data():
         - Opponent's Last Move: {analyzed_move}
         - You are color: Black
         - History of the game: White player: {History}. This will either be provided in coordinates (ex: x2y2) or standard chess notation. If provided in coordinates, decode via considering the board from the white player's point of view in regards to where a coordinate is. X = horizontal axis, Y = vertical axis. If nothing is provided, it is the start of the game. This data is provided in an array.
+        - Your past moves: {BOT_HISTORY}
         - Your piece last taken (if any): {PieceTaken}.
         - Your pieces taken (if any): {takenHistory}.
 
@@ -99,7 +105,7 @@ def receive_data():
         2. You must strictly abide by all standard rules of chess.
         3. The move you suggest MUST be a legal move**.
         4. Do not provide any analysis, commentary, or introduction.
-        5. You must ONLY respond in the exact format specified below.
+        5. You must ONLY respond in the exact format specified below. If you want to make a capture, do not change the format. Do not respond, for example, with 'Black Pawn to dxe.'
 
         ### Output Format
         [Your Color] [Piece] to [Square].
@@ -122,15 +128,19 @@ def receive_data():
         response_string = response_obj.choices[0].message.content
         print(f"{response_string}")
         
-        update_game_state(analyzed_move, response_string, History, takenHistory)
+        wasCaptured = data.get("wasCaptured", False)
+        whitePoints = update_game_state(analyzed_move, response_string, History, takenHistory, whitePoints, wasCaptured)
         print("TAKEN HISTORY: " + f"{takenHistory}")
         MAX_DATA_LIST.append(f"{takenHistory}" + " " + f"{History}")
-        print(MAX_DATA_LIST)
+        BOT_HISTORY.append(f"Your move:{response_string}")
+        print("Printing Bot History!")
+        print(BOT_HISTORY)
         response = jsonify(
             {
                 "status": "success",
                 "processed_move": analyzed_move,
                 "ai_response": response_string,
+                "whitePoints" : whitePoints,
             }
         )
         response.headers.add("Access-Control-Allow-Origin", "*")

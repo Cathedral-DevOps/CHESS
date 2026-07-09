@@ -50,10 +50,12 @@ document.addEventListener("DOMContentLoaded", () => {
       if (targetSquare) {
         // Check if the square already contains a different piece
         const existingPiece = targetSquare.querySelector(".piece");
+        let wasCaptured = false;
         if (existingPiece && existingPiece !== draggedPiece) {
           // Capture logic: remove the old piece, then add the new one
           existingPiece.remove();
           targetSquare.appendChild(draggedPiece);
+          wasCaptured = true;
         } else {
           // Empty square logic: clear out old coordinate text and append
           if (targetSquare.children.length === 0) {
@@ -102,6 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
           username: "Player",
           highlightedSquare: "None",
           moveHistory: moveHistory,
+          wasCaptured: wasCaptured,
         })};
       }
     });
@@ -205,6 +208,7 @@ async function sendToFlask(moveData) {
     player_color: moveData.player_color || "Black",
     highlightedSquare: moveData.highlightedSquare,
     moveHistory: moveData.moveHistory,
+    wasCaptured: moveData.wasCaptured || false,
   };
 
   const requestOptions = {
@@ -224,6 +228,10 @@ async function sendToFlask(moveData) {
     const result = await response.json();
     console.log("Analysis successful:", result.processed_move);
     console.log("Dovetail has stated:", result.ai_response);
+
+    if (result.whitePoints !== undefined){
+      document.getElementById("White-Score").textContent= "White: " +result.whitePoints;
+    }
    
 
     setTimeout(() => {

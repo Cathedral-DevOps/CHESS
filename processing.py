@@ -37,17 +37,22 @@ def calculate(x_in, y_in, placement_in):
     return result
 
 # ai revised it but I wrote the original and understand the concept
-def update_game_state(analyzed_move, response_string, History, takenHistory):
+def update_game_state(analyzed_move, response_string, History, takenHistory, whitePoints, wasCaptured=False):
     if response_string is None and analyzed_move is None:
         History.append('Null move from White ,' + " " 'Null move from Black')
-        return
+        return whitePoints
     if response_string is None or analyzed_move is None:
-        return
-    target_square = analyzed_move[-2:]
-    found_match = any(target_square in element for element in History)
-    if found_match:
-        piece_taken = f"Your piece at {target_square} was taken!"
+        return whitePoints
+    
+    # Check if white player captured a piece
+    if wasCaptured:
+        piece_taken = f"White captured at {analyzed_move}!"
         takenHistory.append(piece_taken)
-    else:
-        History.append(f'{analyzed_move} from White , {response_string} from Black')
-        print("Piece Moved!")
+        whitePoints += 1
+        print(f"Piece captured! White points now: {whitePoints}")
+    
+    # Always add the move to history
+    History.append(f'{analyzed_move} from White , {response_string} from Black')
+    print("Piece Moved!")
+    
+    return whitePoints
